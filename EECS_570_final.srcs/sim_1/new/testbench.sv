@@ -33,7 +33,7 @@ module testbench(
     initial begin
         clk <= 0;
         reset <= 1;
-        #20 reset <= 0;
+            #20 reset <= 0;
         #200 $finish;
     end
 endmodule
