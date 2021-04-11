@@ -9,7 +9,7 @@ module NODE ( input             clk,
             
               output done,
               output full,
-              output ACTIVATION_VALUE output_register
+              output ACTIVATION_VALUE output_comb
             );
 
     parameter [`NUM_BITS-1:0] node_id = 0;
@@ -104,14 +104,12 @@ module NODE ( input             clk,
                     output_register_n = output_register + act;
                 end
 
-                RELU:
-
                 default:
 
             endcase
         
             /////////////// update completed inputs ///////////////
-            n_completed_inputs[input_buffer[head].neuron_num] = 1;
+            n_completed_inputs[input_buffer[head].neuron_num] = 1'b1;
 
             // increment head
             if (head + 1 == `INPUT_BUFFER_SIZE) begin
@@ -127,6 +125,16 @@ module NODE ( input             clk,
             output_register_n = 0;
         end
 
+    end
+
+    // apply relu to output reg to get output comb
+    ACTIVATION_VALUE added_bias;
+    always_comb begin
+        output_comb = 0;
+        added_bias = output_register + cfg.bias;
+        if (added_bias > 0) begin
+            output_comb = added_bias;
+        end
     end
 
     always_ff @(posedge clk) begin
@@ -145,6 +153,7 @@ module NODE ( input             clk,
             completed_inputs <= n_completed_inputs;
             output_register <= output_register_n;
             num_connections <= num_connections_n;
+            bias <= bias;
 
             if (config_in.valid & node_id == config_in.node_id && layer_id = config_in.layer_id)
                 cfg <= config_in;

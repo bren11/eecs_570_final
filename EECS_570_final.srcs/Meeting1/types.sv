@@ -39,20 +39,29 @@ typedef struct packed {
     logic [`LAYER_BITS-1:0]                 layer_id;
     logic [`NUM_BITS-1:0]                   node_id;    // which node this config packet is for
     logic [`LAYER_SIZE-1:0]                 connection_mask;
-    logic [`LAYER_SIZE-1:0][`VAL_WIDTH-1:0] weights;
+    logic [`LAYER_SIZE-1:0]ACTIVATION_VALUE weights;
+    logic ACTIVATION_VALUE                  bias;
     OPERATION_TYPE                          op_type;
 } CONFIG;
 
 typedef enum logic [2:0] {
-    LINEAR   = 3'h0;
-    RELU     = 3'h1;
-    CONV     = 3'h2;
-    RESIDUAL = 3'h3;
+    L_NONE     = 3'h0;
+    L_LINEAR   = 3'h0;
+    L_CONV     = 3'h1;
+    L_RESIDUAL = 3'h2;
+    L_MAXPOOL  = 3'h3;
+    L_AVGPOOL  = 3'h4;
 } LAYER_TYPE;
 
 typedef struct packed {
-    logic ['LAYER_BITS-1:0] size;
+    logic [`LAYER_BITS-1:0] height;
+    logic [`LAYER_BITS-1:0] width;
+    logic [`LAYER_BITS-1:0] depth;
+} DIMENSIONS;
+
+typedef struct packed {
     logic LAYER_TYPE        type;
-    logic ['LAYER_BITS-1:0] stride;
+    logic DIMENSIONS        size;
+    logic [`LAYER_BITS-1:0] stride;
 } LAYER_CONFIG;
 

@@ -1,7 +1,9 @@
 module CONTROLLER ( input                                       clk,
                     input                                       rst,
+                    output                                      err,
 
                     input [`LAYER_NUM-1:0] LAYER_CONFIG         layers,
+                    input DIMENSIONS                            input_size,
 
                     input                                       input_valid,
                     input [`LAYER_SIZE-1:0] ACTIVATION_ENTRY    input_layer,
@@ -19,8 +21,14 @@ module CONTROLLER ( input                                       clk,
                     output [`LAYER_SIZE-1:0][`VAL_WIDTH-1:0]    out_weights*/
                     );
 
-    logic ['LAYER_BITS-1:0] layer_it;
-    logic ['LAYER_BITS-1:0] n_layer_it;
+    logic n_err;
+
+    logic [`LAYER_BITS-1:0] layer_it;
+    logic [`LAYER_BITS-1:0] n_layer_it;
+    logic [1:0]             internal_it;
+    logic [1:0]             n_internal_it;
+    logic DIMENSIONS        prev_size;
+    logic DIMENSIONS        n_prev_size;
 
     logic CONFIG config;
     logic CONFIG n_config;
@@ -56,6 +64,7 @@ module CONTROLLER ( input                                       clk,
     assign input_accept = ~(|(full[0]));
 
     always_comb begin
+        n_err = err;
         /////////////////// OUTPUT SIGNAL //////////////////////////
         n_out_ready = out_ready;
         n_output_layer = output_layer;
@@ -71,28 +80,94 @@ module CONTROLLER ( input                                       clk,
 
         /////////////////// CONFIG TARGET //////////////////////////
         n_config = config;
+        n_layer_it = layer_it;
+        n_internal_it = internal_it;
+        n_prev_size = prev_size;
         if (config.node_id + 1 == `LAYER_NUM) begin
             n_config.node_id = 0;
             if (config.layer_id + 1 == `LAYER_NUM)
                 n_config.valid = `FALSE;
             else
                 n_config.layer_id = config.layer_id + 1;
+                n_prev_size = layers[layer_it].size;
+                case (layers[layer_it].type) 
+                    L_LINEAR:
+                        n_layer_it = layer_it + 1;
+                    L_CONV: begin
+                        n_layer_it = layer_it + 1;
+                        n_prev_size.height = 1 + (prev_size.height - layers[layer_it].height) / layers[layer_it].stride;
+                        n_prev_size.width = 1 + (prev_size.width - layers[layer_it].width) / layers[layer_it].stride;
+                        n_prev_size.depth = layers[layer_it].depth;
+                    end
+                    L_MAXPOOL:
+                        n_layer_it = layer_it + 1; 
+                    L_AVGPOOL:
+                        n_layer_it = layer_it + 1; 
+                    L_RESIDUAL: begin
+                        if (internal_it == 0b10) begin
+                            n_layer_it = layer_it + 1;
+                            n_internal_it = 0;
+                        else
+                            n_internal_it = internal_it + 1;
+                        end
+                    end
+                endcase
         else
            n_config.node_id = config.node_id + 1;
         end
 
+        n_config.connection_mask = 0;
         /////////////////// DETERMINE CONFIG //////////////////////////
-        case(layers[layer_it]) 
-            LINEAR: begin
-                for (int k = 0; k < layers[layer_it])
+        case (layers[n_layer_it].type) 
+            L_LINEAR: begin
+                if (n_config.node_id < layers[n_layer_it].size) begin
+                    n_config.op_type = MACC;
+                    for (int c = 0; c < n_prev_size.height * n_prev_size.width * n_prev_size.depth; c++) {
+                        n_config.connection_mask[c] = `TRUE;
+                        n_config.weights[c] = 1;
+                    }
+                end
             end
-            RELU: begin
-                
+            L_CONV: begin
+                for (layers[n_layer_it].size.height)
             end
-            CONV: begin
-                
+            L_RESIDUAL: begin
+                case (n_internal_it)
+                    0b00: begin
+                        if (n_config.node_id < layers[n_layer_it].size) begin
+                            n_config.op_type = MACC;
+                            n_config.connection_mask = 0;
+                            for (int c = 0; c < n_prev_size.height * n_prev_size.width * n_prev_size.depth; c++) {
+                                n_config.connection_mask[c] = `TRUE;
+                                n_config.weights[c] = 1;
+                            }
+                        end
+                    end
+                    0b01: begin
+                        if (n_config.node_id < layers[n_layer_it].size) begin
+                            n_config.op_type = MACC;
+                            for (int c = 0; c < n_prev_size.height * n_prev_size.width * n_prev_size.depth; c++) {
+                                n_config.connection_mask[c] = `TRUE;
+                                n_config.weights[c] = 1;
+                            }
+                        else if (n_config.node_id < (n_prev_size.height * n_prev_size.width * n_prev_size.depth * 2))
+                            n_config.op_type = ADD;
+                            n_config.connection_mask[n_config.node_id] = `TRUE;
+                            n_config.weights[n_config.node_id] = 1;
+                        end
+                    end
+                    0b10: begin
+                        if (n_config.node_id < layers[n_layer_it].size) begin
+                            n_config.op_type = ADD;
+                            for (int c = 0; c < n_prev_size.height * n_prev_size.width * n_prev_size.depth * 2; c++) {
+                                n_config.connection_mask[c] = `TRUE;
+                                n_config.weights = 1;
+                            }
+                        end
+                    end
+                endcase
             end
-            RESIDUAL: begin
+            L_MAXPOOL: begin
                 
             end
         endcase
@@ -107,7 +182,9 @@ module CONTROLLER ( input                                       clk,
             output_layer <= 0;
             out_ready <= 0;
             config <= {`TRUE, 0, 0, 0, 0, 0};
-
+            internal_it <= 0;
+            prev_size <= input_size;
+            err <= 0;
 
         else begin
             cur_layer <= n_cur_layer;
@@ -116,6 +193,9 @@ module CONTROLLER ( input                                       clk,
             output_layer <= n_output_layer;
             out_ready <= n_out_ready;
             config <= n_config;
+            internal_it <= n_internal_it;
+            prev_size <= n_prev_size;
+            err <= n_err;
         end
     end
 

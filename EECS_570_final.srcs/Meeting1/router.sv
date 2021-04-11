@@ -2,7 +2,7 @@
 module ROUTER (
                 input clk,
                 input rst,
-                input neuron_outputs [`LAYER_SIZE-1:0],                               // output-value inputs from the previous layer
+                input ACTIVATION_VALUE neuron_outputs [`LAYER_SIZE-1:0],                               // output-value inputs from the previous layer
                 input output_ready [`LAYER_SIZE-1:0],
                 input neuron_full [`LAYER_SIZE-1:0],
 
@@ -28,7 +28,7 @@ module ROUTER (
         output_buffer = output_buffer_n;
         
         for (int i = 0; i < `LAYER_SIZE; ++i) begin
-            if (neuron_outputs[i] & output_ready[i]) begin
+            if (~output_buffer[i].valid & output_ready[i]) begin
                 output_buffer_n[i].value = neuron_outputs[i];
                 output_buffer_n[i].valid = 1'b1;
             end
