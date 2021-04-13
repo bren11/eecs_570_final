@@ -1,23 +1,22 @@
-
+`define NUM_PASSES 32
 
 module testbench;
 
 // inputs
 logic clk;
 logic rst;
-logic err;
 
-[`LAYER_NUM-1:0] LAYER_CONFIG   layers;
+LAYER_CONFIG [`LAYER_NUM-1:0] layers;
 DIMENSIONS                      input_size;
 
 logic input_valid;
-[`LAYER_SIZE-1:0] ACTIVATION_ENTRY    input_layer,
+ACTIVATION_VALUE [`LAYER_SIZE-1:0] input_layer;
 
 // outputs
 
 logic input_accept;
 logic output_valid;
-logic [`LAYER_SIZE-1:0] ACTIVATION_ENTRY output_layer;
+ACTIVATION_VALUE [`LAYER_SIZE-1:0] output_layer;
 
 initial clk = 1'b0;
 always #5 clk = ~clk;
@@ -25,7 +24,6 @@ always #5 clk = ~clk;
 CONTROLLER ctrler(
                 .clk(clk),
                 .rst(rst),
-                .err(err),
                 .layers(layers),
                 .input_size(input_size),
                 .input_valid(input_valid),
@@ -38,14 +36,14 @@ CONTROLLER ctrler(
 
 task random_input;
     for (int i = 0; i < `LAYER_SIZE; ++i) begin
-        input_layer[i] = $random();    
+        input_layer[i] = /*$random();*/1;    
     end
 endtask;
 
-task wait;
+task wait_for;
     input int cycles_to_wait;
     for (int i = 0; i < cycles_to_wait; ++i) begin
-        @posedge clk;
+        @(negedge clk);
     end
 endtask;
 
@@ -54,42 +52,50 @@ initial begin
     // inputing layer configuration
     rst = 1'b1;
     for (int i = 0; i < `LAYER_NUM; ++i) begin
-        layers[i].type = L_LINEAR;
+        layers[i].layer_type = L_LINEAR;
 
-        layers[i].size.height = 32;
-        layers[i].size.width = 1;
-        layers[i].size.depth = 1;
+        layers[i].size.width = 0;
+        layers[i].size.depth = 0;
 
-        layers.stride = 1;
+        layers[i].stride = 1;
     end
+    layers[0].size.height = 31;
+    layers[1].size.height = 15;
+    layers[2].size.height = 7;
+    layers[3].size.height = 3;
+    layers[4].size.height = 1;
+    layers[5].size.height = 31;
+    layers[6].size.height = 1;
+    layers[7].size.height = 15;
 
-    input_size.height = 32;
-    input_size.width = 1;
-    input_size.depth = 1;
+    input_size.height = 31;
+    input_size.width = 0;
+    input_size.depth = 0;
 
-    @posedge clk;
+    @(negedge clk);
     rst = 1'b0;
 
     // first input
-    @posedge clk;
+    @(negedge clk);
 
     random_input();
 
     for (int i = 0; i < `LAYER_SIZE*`LAYER_NUM; ++i) begin
-        @posedge clk;
+        @(negedge clk);
     end
 
-    @posedge clk;
+    @(negedge clk);
 
     input_valid = 1'b1;
 
     for (int i = 0; i < `NUM_PASSES - 1; ++i) begin
-        @posedge input_accept;
+        @(posedge input_accept);
+        @(negedge clk);
         random_input();
     end
     
     // just wait a while so that the passes can propogate through
-    wait(`LAYER_NUM*10);
+    wait(`LAYER_NUM*`LAYER_SIZE);
 
     $stop;
 end

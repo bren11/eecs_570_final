@@ -3,7 +3,7 @@
 
 `define LAYER_SIZE 32
 `define LAYER_NUM 8
-`define VAL_WIDTH 8
+`define VAL_WIDTH 32
 
 `define BUS_WIDTH
 
@@ -43,10 +43,10 @@ typedef enum logic [2:0] {
 
 typedef struct packed {
     logic                                   valid;
-    logic [`LAYER_BITS-1:0]                 layer_id;
-    logic [`NUM_BITS-1:0]                   node_id;    // which node this config packet is for
+    logic [`NUM_BITS-1:0]                   layer_id;
+    logic [`LAYER_BITS-1:0]                 node_id;    // which node this config packet is for
     logic [`LAYER_SIZE-1:0]                 connection_mask;
-    logic [`LAYER_SIZE-1:0][`VAL_WIDTH-1:0] weights;
+    ACTIVATION_VALUE [`LAYER_SIZE-1:0]      weights;
     ACTIVATION_VALUE                        bias;
     OPERATION_TYPE                          op_type;
 } CONFIG;

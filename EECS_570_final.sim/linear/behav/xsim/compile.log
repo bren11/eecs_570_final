@@ -1,6 +1,0 @@
-INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/brend/OneDrive/Documents/school/eecs570/EECS_570_final/EECS_570_final.srcs/Meeting1/node.sv" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module NODE
-INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/brend/OneDrive/Documents/school/eecs570/EECS_570_final/EECS_570_final.srcs/Meeting1/node_test.sv" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module testbench
-INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/brend/OneDrive/Documents/school/eecs570/EECS_570_final/EECS_570_final.sim/linear/behav/xsim/glbl.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module glbl

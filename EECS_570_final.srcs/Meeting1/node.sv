@@ -10,7 +10,7 @@ module NODE ( input             clk,
               output ACTIVATION_VALUE output_comb
             );
 
-    parameter [`NUM_BITS-1:0] node_id = 0;
+    parameter [`LAYER_BITS-1:0] node_id = 0;
     parameter [`NUM_BITS-1:0] layer_id = 0;
 
     BUS_PACKET[`INPUT_BUFFER_SIZE-1:0] input_buffer;
@@ -41,7 +41,7 @@ module NODE ( input             clk,
     assign full = (head == tail) & input_buffer[head].valid;
     assign empty = (head == tail) & ~input_buffer[head].valid;
 
-    assign done = (completed_inputs == cfg.connection_mask);
+    assign done = (completed_inputs == cfg.connection_mask) & |(cfg.connection_mask);
 
     // determine num_connections
     always_comb begin
@@ -68,7 +68,7 @@ module NODE ( input             clk,
         if (bus_in.valid & cfg.connection_mask[bus_in.neuron_num]) begin
             /////////////// receive input ///////////////
             if (~full) begin
-                n_input_buffer[tail].value = bus_in.value;
+                n_input_buffer[tail] = bus_in;
                 if (tail + 1 == `INPUT_BUFFER_SIZE)
                     n_tail = 0;
                 else

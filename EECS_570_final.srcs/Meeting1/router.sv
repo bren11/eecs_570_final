@@ -1,38 +1,31 @@
-
+`include "types.sv"
 module ROUTER (
                 input clk,
                 input rst,
-                ACTIVATION_VALUE neuron_outputs [`LAYER_SIZE-1:0],                               // output-value inputs from the previous layer
-                input output_ready [`LAYER_SIZE-1:0],
+                input ACTIVATION_VALUE [`LAYER_SIZE-1:0] neuron_outputs,                               // output-value inputs from the previous layer
+                input [`LAYER_SIZE-1:0] output_ready,
                 input [`LAYER_SIZE-1:0] neuron_full,
+                input CONFIG            config_in,
 
-                output full [`LAYER_SIZE-1:0],                                         // signal back to previous layer for if we have space for a new output
+                output [`LAYER_SIZE-1:0] full,                                         // signal back to previous layer for if we have space for a new output
                 BUS_PACKET bus_out
             );
 
-    logic [`LAYER_SIZE-1:0]ACTIVATION_ENTRY output_buffer;        // computed values from previous layer ready to be sent to next layer
-    [`LAYER_SIZE-1:0]ACTIVATION_ENTRY output_buffer_n;
+    parameter [`NUM_BITS-1:0] layer_id = 0;
 
-    logic pass_completion [`LAYER_SIZE-1:0] ;               // which data values we've already sent out this pass (to prevent deadlock if we start the next pass early)
-    logic pass_completion_n [`LAYER_SIZE-1:0];
+    ACTIVATION_ENTRY [`LAYER_SIZE-1:0] output_buffer;        // computed values from previous layer ready to be sent to next layer
+    ACTIVATION_ENTRY [`LAYER_SIZE-1:0] output_buffer_n ;
 
-    logic ready_to_be_sent [`LAYER_SIZE-1:0];
-    logic granted_output [`LAYER_SIZE-1:0];
+    logic [`LAYER_SIZE-1:0] pass_completion;               // which data values we've already sent out this pass (to prevent deadlock if we start the next pass early)
+    logic [`LAYER_SIZE-1:0] pass_completion_n;
+
+    logic [`LAYER_SIZE-1:0] ready_to_be_sent;
+    logic [`LAYER_SIZE-1:0] granted_output;
+
+    logic [`LAYER_SIZE-1:0] target_input;
     
     for(genvar i = 0; i < `LAYER_SIZE; ++i) begin
         assign full[i] = output_buffer[i].valid; 
-    end
-
-    /////////////////// INCOMING //////////////////////////
-    always_comb begin
-        output_buffer = output_buffer_n;
-        
-        for (int i = 0; i < `LAYER_SIZE; ++i) begin
-            if (~output_buffer[i].valid & output_ready[i]) begin
-                output_buffer_n[i].value = neuron_outputs[i];
-                output_buffer_n[i].valid = 1'b1;
-            end
-        end
     end
 
     /////////////////// OUTGOING ///////////////////////////
@@ -49,6 +42,17 @@ module ROUTER (
     // select the buffer packet and send it on the bus
     always_comb begin
         bus_out = 0;
+        pass_completion_n = pass_completion;
+        output_buffer_n = output_buffer;
+
+        /////////////////// INCOMING //////////////////////////
+        for (int i = 0; i < `LAYER_SIZE; ++i) begin
+            if (~output_buffer[i].valid & output_ready[i]) begin
+                output_buffer_n[i].value = neuron_outputs[i];
+                output_buffer_n[i].valid = 1'b1;
+            end
+        end
+
         if(~(neuron_full)) begin
             for (int i = 0; i < `LAYER_SIZE; ++i) begin
                 if (granted_output[i]) begin
@@ -65,12 +69,7 @@ module ROUTER (
                 end
             end
         end
-    end
-
-    // if we have finished this pass, we can start the next pass (reset the completion vector)
-    always_comb begin
-        pass_completion_n = pass_completion;
-        if(&(pass_completion)) begin
+        if(pass_completion == target_input) begin
             pass_completion_n = 0;
         end
     end
@@ -80,9 +79,14 @@ module ROUTER (
 
     always_ff @(posedge clk) begin
         if (rst) begin
-            output_buffer <= 0;
+            for (int i = 0; i < `LAYER_SIZE; i++) begin
+                output_buffer[i] = 0;
+            end
             pass_completion <= 0;
+            target_input <= 0;
         end else begin
+            if (config_in.valid && config_in.layer_id == layer_id)
+                target_input <= (target_input | config_in.connection_mask);
             output_buffer <= output_buffer_n;
             pass_completion <= pass_completion_n;
         end

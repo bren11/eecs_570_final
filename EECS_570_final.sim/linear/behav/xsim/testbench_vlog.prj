@@ -1,7 +1,11 @@
 # compile verilog/system verilog design source files
 sv xil_defaultlib  \
+"../../../../EECS_570_final.srcs/Meeting1/controller.sv" \
 "../../../../EECS_570_final.srcs/Meeting1/node.sv" \
-"../../../../EECS_570_final.srcs/Meeting1/node_test.sv" \
+"../../../../EECS_570_final.srcs/Meeting1/ps.sv" \
+"../../../../EECS_570_final.srcs/Meeting1/router.sv" \
+"../../../../EECS_570_final.srcs/Meeting1/wand_sel.sv" \
+"../../../../EECS_570_final.srcs/Meeting1/linear_layer_test.sv" \
 
 # compile glbl module
 verilog xil_defaultlib "glbl.v"

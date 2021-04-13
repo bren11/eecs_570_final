@@ -18,8 +18,8 @@ module priority_selector ( // Inputs
                 );
 
   // synopsys template
-  parameter REQS  = `N;
-  parameter WIDTH = `RS_NUM_ENTRIES;
+  parameter REQS  = 4;
+  parameter WIDTH = 8;
 
   // Inputs
   input wire  [WIDTH-1:0]       req;
