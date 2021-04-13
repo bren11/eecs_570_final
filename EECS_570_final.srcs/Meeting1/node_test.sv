@@ -12,7 +12,7 @@ module testbench;
 
 
     // node instance
-    node jeffery(
+    NODE jeffery(
             .clk(clock),
             .rst(reset),
             .bus_in(bus_pkt),
@@ -21,11 +21,11 @@ module testbench;
         
             .done(done),
             .full(full),
-            .output_register(node_output)        
+            .output_comb(node_output)        
     );
 
     // debug tasks
-    task reset;
+    task reset_func;
         clock = 0;
         reset = 1;
         cfg = 0;
@@ -46,7 +46,7 @@ module testbench;
 
     // run tests
     initial begin
-        reset();
+        reset_func();
 
         // give bus packets to the node, check its output at the end
         cfg.valid = 1;

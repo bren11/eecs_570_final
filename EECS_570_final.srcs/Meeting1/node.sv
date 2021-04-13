@@ -1,6 +1,4 @@
-// investigate systolic arrays
-
-
+`include "types.sv"
 module NODE ( input             clk,
               input             rst,
               input BUS_PACKET  bus_in,
@@ -15,8 +13,8 @@ module NODE ( input             clk,
     parameter [`NUM_BITS-1:0] node_id = 0;
     parameter [`NUM_BITS-1:0] layer_id = 0;
 
-    logic [`INPUT_BUFFER_SIZE-1:0] BUS_PACKET input_buffer;
-    logic [`INPUT_BUFFER_SIZE-1:0] BUS_PACKET n_input_buffer;
+    BUS_PACKET[`INPUT_BUFFER_SIZE-1:0] input_buffer;
+    BUS_PACKET[`INPUT_BUFFER_SIZE-1:0] n_input_buffer;
 
     logic [`LAYER_SIZE-1:0] completed_inputs;   // which inputs for this layer have been used
     logic [`LAYER_SIZE-1:0] n_completed_inputs;
@@ -26,28 +24,31 @@ module NODE ( input             clk,
     logic [`INPUT_BUFFER_BITS-1:0] tail;
     logic [`INPUT_BUFFER_BITS-1:0] n_tail;
 
+    logic empty;
+
     ACTIVATION_VALUE weight;
     ACTIVATION_VALUE act;
     ACTIVATION_VALUE partial_output;
 
     ACTIVATION_VALUE output_register_n;
+    ACTIVATION_VALUE output_register;
 
-    [`LAYER_BITS-1:0] num_connections;
-    [`LAYER_BITS-1:0] num_connections_n;
+    logic [`LAYER_BITS-1:0] num_connections;
+    logic [`LAYER_BITS-1:0] num_connections_n;
 
-    logic CONFIG cfg;
+    CONFIG cfg;
     
     assign full = (head == tail) & input_buffer[head].valid;
     assign empty = (head == tail) & ~input_buffer[head].valid;
 
-    assign done = (completed_inputs == connection_mask);
+    assign done = (completed_inputs == cfg.connection_mask);
 
     // determine num_connections
     always_comb begin
         num_connections_n = 0;
         for (int i = 0; i < `LAYER_SIZE; ++i) begin
             if (config_in.connection_mask[i]) begin
-                num_connections = num_connections_n + 1;
+                num_connections_n = num_connections + 1;
             end
         end
     end
@@ -56,7 +57,7 @@ module NODE ( input             clk,
         weight = 0;
         act = 0;
         partial_output = 0;
-        output_register_n = output_register;
+        output_register_n = output_comb;
 
         n_input_buffer = input_buffer;
         n_head = head;
@@ -68,11 +69,10 @@ module NODE ( input             clk,
             /////////////// receive input ///////////////
             if (~full) begin
                 n_input_buffer[tail].value = bus_in.value;
-                if (tail + 1 == `INPUT_BUFFER_SIZE) begin
+                if (tail + 1 == `INPUT_BUFFER_SIZE)
                     n_tail = 0;
                 else
                     n_tail = tail + 1;
-                end
             end
         end
 
@@ -104,8 +104,6 @@ module NODE ( input             clk,
                     output_register_n = output_register + act;
                 end
 
-                default:
-
             endcase
         
             /////////////// update completed inputs ///////////////
@@ -121,7 +119,7 @@ module NODE ( input             clk,
         end
 
         if (done & ~router_full) begin
-            completed_inputs_n = 0;
+            n_completed_inputs = 0;
             output_register_n = 0;
         end
 
@@ -138,7 +136,7 @@ module NODE ( input             clk,
     end
 
     always_ff @(posedge clk) begin
-        if (rst)
+        if (rst) begin
             cfg <= 0;
             input_buffer <= 0;
             head <= 0;
@@ -146,16 +144,15 @@ module NODE ( input             clk,
             completed_inputs <= 0;
             num_connections <= 0;
 
-        else begin
+        end else begin
             input_buffer <= n_input_buffer;
             head <= n_head;
             tail <= n_tail;
             completed_inputs <= n_completed_inputs;
             output_register <= output_register_n;
             num_connections <= num_connections_n;
-            bias <= bias;
 
-            if (config_in.valid & node_id == config_in.node_id && layer_id = config_in.layer_id)
+            if (config_in.valid & node_id == config_in.node_id && layer_id == config_in.layer_id)
                 cfg <= config_in;
         end
     end

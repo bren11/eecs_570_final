@@ -26,13 +26,18 @@ module blink(
     input reset
     );
 
+reg[1:0] count;
     
 always_ff @(posedge clk) 
 begin
-    if (reset) 
+    if (reset) begin
         out <= 0;
-    else
-        out <= ~out;
+        count <= 0;
+    end
+    else begin
+        count += 1;
+        out <= count == 0;
+    end
     
 end
 endmodule

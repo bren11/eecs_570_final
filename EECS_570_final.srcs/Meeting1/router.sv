@@ -2,15 +2,15 @@
 module ROUTER (
                 input clk,
                 input rst,
-                input ACTIVATION_VALUE neuron_outputs [`LAYER_SIZE-1:0],                               // output-value inputs from the previous layer
+                ACTIVATION_VALUE neuron_outputs [`LAYER_SIZE-1:0],                               // output-value inputs from the previous layer
                 input output_ready [`LAYER_SIZE-1:0],
-                input neuron_full [`LAYER_SIZE-1:0],
+                input [`LAYER_SIZE-1:0] neuron_full,
 
                 output full [`LAYER_SIZE-1:0],                                         // signal back to previous layer for if we have space for a new output
-                output BUS_PACKET bus_out
+                BUS_PACKET bus_out
             );
 
-    [`LAYER_SIZE-1:0]ACTIVATION_ENTRY output_buffer;        // computed values from previous layer ready to be sent to next layer
+    logic [`LAYER_SIZE-1:0]ACTIVATION_ENTRY output_buffer;        // computed values from previous layer ready to be sent to next layer
     [`LAYER_SIZE-1:0]ACTIVATION_ENTRY output_buffer_n;
 
     logic pass_completion [`LAYER_SIZE-1:0] ;               // which data values we've already sent out this pass (to prevent deadlock if we start the next pass early)
@@ -18,8 +18,8 @@ module ROUTER (
 
     logic ready_to_be_sent [`LAYER_SIZE-1:0];
     logic granted_output [`LAYER_SIZE-1:0];
-
-    for(genvar i = 0; i < `LAYER_SIZE; i++) begin
+    
+    for(genvar i = 0; i < `LAYER_SIZE; ++i) begin
         assign full[i] = output_buffer[i].valid; 
     end
 
@@ -78,7 +78,7 @@ module ROUTER (
     ///////////////////////////////////////////////////////////////////
 
 
-    always_ff (@posedge clk) begin
+    always_ff @(posedge clk) begin
         if (rst) begin
             output_buffer <= 0;
             pass_completion <= 0;

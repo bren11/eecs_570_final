@@ -1,0 +1,18 @@
+Vivado Simulator 2020.2
+Copyright 1986-1999, 2001-2020 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2020.2/bin/unwrapped/win64.o/xelab.exe -wto b0e604eadec74771a23db2d7df67a240 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L uvm -L unisims_ver -L unimacro_ver -L secureip --snapshot testbench_behav xil_defaultlib.testbench xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+WARNING: [VRFC 10-3705] select index 32 into 'weights' is out of bounds [C:/Users/brend/OneDrive/Documents/school/eecs570/EECS_570_final/EECS_570_final.srcs/Meeting1/node_test.sv:60]
+Completed static elaboration
+Starting simulation data flow analysis
+WARNING: [XSIM 43-4099] "C:/Users/brend/OneDrive/Documents/school/eecs570/EECS_570_final/EECS_570_final.srcs/Meeting1/node.sv" Line 2. Module NODE doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "C:/Users/brend/OneDrive/Documents/school/eecs570/EECS_570_final/EECS_570_final.srcs/Meeting1/node.sv" Line 2. Module NODE doesn't have a timescale but at least one module in design has a timescale.
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package xil_defaultlib.$unit_node_sv
+Compiling module xil_defaultlib.NODE
+Compiling module xil_defaultlib.testbench
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot testbench_behav
