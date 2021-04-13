@@ -1,4 +1,5 @@
 
+
 module testbench;
 
 // inputs
@@ -35,7 +36,22 @@ CONTROLLER ctrler(
                 .output_layer(output_layer)
 );
 
+task random_input;
+    for (int i = 0; i < `LAYER_SIZE; ++i) begin
+        input_layer[i] = $random();    
+    end
+endtask;
+
+task wait;
+    input int cycles_to_wait;
+    for (int i = 0; i < cycles_to_wait; ++i) begin
+        @posedge clk;
+    end
+endtask;
+
 initial begin
+
+    // inputing layer configuration
     rst = 1'b1;
     for (int i = 0; i < `LAYER_NUM; ++i) begin
         layers[i].type = L_LINEAR;
@@ -46,10 +62,36 @@ initial begin
 
         layers.stride = 1;
     end
+
+    input_size.height = 32;
+    input_size.width = 1;
+    input_size.depth = 1;
+
+    @posedge clk;
+    rst = 1'b0;
+
+    // first input
     @posedge clk;
 
+    random_input();
+
+    for (int i = 0; i < `LAYER_SIZE*`LAYER_NUM; ++i) begin
+        @posedge clk;
+    end
 
     @posedge clk;
+
+    input_valid = 1'b1;
+
+    for (int i = 0; i < `NUM_PASSES - 1; ++i) begin
+        @posedge input_accept;
+        random_input();
+    end
+    
+    // just wait a while so that the passes can propogate through
+    wait(`LAYER_NUM*10);
+
+    $stop;
 end
 
 

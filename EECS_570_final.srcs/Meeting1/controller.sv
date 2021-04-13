@@ -5,6 +5,8 @@ module CONTROLLER ( input                                       clk,
                     input [`LAYER_NUM-1:0] LAYER_CONFIG         layers,
                     input DIMENSIONS                            input_size,
 
+                    input [`LAYER_NUM-1:0]
+
                     input                                       input_valid,
                     input [`LAYER_SIZE-1:0] ACTIVATION_ENTRY    input_layer,
                     output                                      input_accept,
@@ -53,11 +55,11 @@ module CONTROLLER ( input                                       clk,
         else
             ROUTER r(.clk(clk), .rst(rst), .neuron_outputs(values[i-1]), .output_ready(ready[i-1]), .neuron_full(neuron_full[i]), .full(full[i]), .bus_out(bus[i]));
         end
-        for(genvar j = 0; j < `LAYER_NUM; j++) begin
-            if (j == `LAYER_NUM - 1)
+        for(genvar j = 0; j < `LAYER_SIZE; j++) begin
+            if (j == `LAYER_SIZE - 1)
                 NODE #(.layer_id(i), .node_id(j)) n(.clk(clk), .rst(rst), .bus_in(bus[i]), .config_in(config), .router_full(full[i+1][j]), .done(ready[i][j]), .full(neuron_full[i][j]), .act_out(values[i][j]));
             else
-               NODE #(.layer_id(i), .node_id(j)) n(.clk(clk), .rst(rst), .bus_in(bus[i]), .config_in(config), .router_full(out_ready[j]), .done(ready[i][j]), .full(neuron_full[i][j]), .act_out(values[i][j])); 
+                NODE #(.layer_id(i), .node_id(j)) n(.clk(clk), .rst(rst), .bus_in(bus[i]), .config_in(config), .router_full(out_ready[j]), .done(ready[i][j]), .full(neuron_full[i][j]), .act_out(values[i][j])); 
         end
     end
 
