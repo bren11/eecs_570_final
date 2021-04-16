@@ -22,8 +22,9 @@
 typedef logic [`VAL_WIDTH-1:0] ACTIVATION_VALUE;
 
 typedef struct packed {
-    logic valid;
+    //logic valid;
     ACTIVATION_VALUE value;
+    logic [`LAYER_BITS-1:0] neuron_num;
 } ACTIVATION_ENTRY;
 
 
