@@ -2,12 +2,18 @@
 module ROUTER (
                 input clk,
                 input rst,
+
+                // forward prop
                 input ACTIVATION_VALUE [`LAYER_SIZE-1:0] neuron_outputs,                               // output-value inputs from the previous layer
                 input [`LAYER_SIZE-1:0] output_ready,
-                input [`LAYER_SIZE-1:0] neuron_full,
+                input [`LAYER_SIZE-1:0] neuron_stall,
                 input CONFIG            config_in,
 
-                output [`LAYER_SIZE-1:0] full,         // probably want to rename signal back to previous layer for if we have space for a new output
+                // backward prop
+                input 
+
+                output [`LAYER_SIZE-1:0] data_received_ack,         // probably want to rename signal back to previous layer for if we have space for a new output
+                output ACTIVATION_VALUE [`LAYER_SIZE-1:0] weights_out;
                 BUS_PACKET bus_out
             );
 
@@ -16,6 +22,14 @@ module ROUTER (
     // TODO: need to fix sizing for his : should be something like 2*(LAYER_NUM-layer_id)*LAYER_SIZE)
     ACTIVATION_ENTRY [`LAYER_SIZE-1:0] output_buffer;        // computed values from previous layer ready to be sent to next layer
     ACTIVATION_ENTRY [`LAYER_SIZE-1:0] output_buffer_n ;
+
+
+    // indexed by wights[from][to]
+    ACTIVATION_VALUE [`LAYER_SIZE-1:0][`LAYER_SIZE-1:0] weights;
+
+    ACTIVATION_VALUE [`LAYER_SIZE-1:0][`LAYER_SIZE-1:0] weights_updating;
+    ACTIVATION_VALUE [`LAYER_SIZE-1:0][`LAYER_SIZE-1:0] weights_updating_n;
+
 
     // these should be the same size as above
     [BITS_OF_OUTPUT_BUFFER_SIZE] head_forward_prop;
@@ -47,7 +61,8 @@ module ROUTER (
         bus_out = 0;
         pass_completion_n = pass_completion;
         output_buffer_n = output_buffer;
-        full = ~(0);
+        data_received_ack = ~(0);
+        weights_out = 0;
 
         /////////////////// INCOMING ///////////////////////////
 
@@ -58,11 +73,11 @@ module ROUTER (
                 pass_completion_n[i] = 1'b1;
 
                 // tell previous cell it has been accepted
-                full[i] = 1'b0;
+                data_received_ack[i] = 1'b0;
 
                 // add entry
-                output_buffer[tail].value = neuron_outputs[i];
-                output_buffer[tail].neuron_num = i;
+                output_buffer_n[tail].value = neuron_outputs[i];
+                output_buffer_n[tail].neuron_num = i;
 
                 // deal with head and tail logic
                 if (tail != `LAYER_SIZE - 1) begin
@@ -76,11 +91,12 @@ module ROUTER (
 
         /////////////////// OUTGOING ///////////////////////////
 
-        if(~(neuron_full)) begin
+        if(~(neuron_stall)) begin
             // if no one is full just send out the thing at the head
             bus_out.valid = 1'b1;
             bus_out.value = output_buffer[head_forward_prop].value;
             bus_out.neuron_num = output_buffer[head_forward_prop].neuron_num;
+            weights_out = weights[output_buffer[head_forward_prop].neuron_num]; 
 
             // increment head
             if (tail != `LAYER_SIZE - 1) begin
@@ -101,15 +117,18 @@ module ROUTER (
 
     always_ff @(posedge clk) begin
         if (rst) begin
-            for (int i = 0; i < `LAYER_SIZE; i++) begin
-                output_buffer[i] = 0;
-            end
+            output_buffer <= 0;
             pass_completion <= 0;
             target_input <= 0;
 
             head_forward_prop <= 0;
             head_backward_prop <= 0;
             tail <= 0;
+            for (int i = 0; i < `LAYER_SIZE; i++) begin
+                for (int j = 0; j < `LAYER_SIZE; j++) begin
+                    weights[i][j] <= 1;
+                end
+            end
 
         end else begin
             if (config_in.valid && config_in.layer_id == layer_id)
@@ -120,6 +139,9 @@ module ROUTER (
             head_forward_prop <= head_forward_prop_n;
             head_backward_prop <= head_backward_prop_n;
             tail <= tail_n;
+
+            // TODO: this is a temp fix \/
+            weights <= weights; 
         end
     end
 

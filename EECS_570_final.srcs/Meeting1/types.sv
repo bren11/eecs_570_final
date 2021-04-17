@@ -47,8 +47,6 @@ typedef struct packed {
     logic [`NUM_BITS-1:0]                   layer_id;
     logic [`LAYER_BITS-1:0]                 node_id;    // which node this config packet is for
     logic [`LAYER_SIZE-1:0]                 connection_mask;
-    ACTIVATION_VALUE [`LAYER_SIZE-1:0]      weights;
-    ACTIVATION_VALUE                        bias;
     OPERATION_TYPE                          op_type;
 } CONFIG;
 
