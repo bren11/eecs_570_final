@@ -58,7 +58,7 @@ module ROUTER (
                 pass_completion_n[i] = 1'b1;
 
                 // tell previous cell it has been accepted
-                full[i] = 1'b1;
+                full[i] = 1'b0;
 
                 // add entry
                 output_buffer[tail].value = neuron_outputs[i];

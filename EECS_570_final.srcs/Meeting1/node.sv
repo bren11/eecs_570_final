@@ -5,7 +5,7 @@ module NODE ( input             clk,
               input CONFIG      config_in,
               input             router_full,
             
-              output done,
+              output stall,
               //output full, don't need full since operation takes a single cycle
               output ACTIVATION_VALUE output_comb
             );
@@ -32,7 +32,12 @@ module NODE ( input             clk,
 
     CONFIG cfg;
 
+    assign stall = done | !(router_full)
     assign done = (completed_inputs == cfg.connection_mask) & |(cfg.connection_mask);
+
+    // either 0 or output_reg depending on if we need to reset
+    logic ACTIVATION_VALUE current_value;
+    assign current_value = router_full ? output_register : 0;
 
     // determine num_connections
     always_comb begin
@@ -62,28 +67,28 @@ module NODE ( input             clk,
 
         /////////////// get weight and activation at the head of the buffer ///////////////
 
-        if (~done & input_reg.valid) begin
+        if ((~done & input_reg.valid) | ~router_full) begin
             weight = cfg.weights[input_reg.neuron_num];
             /////////////// operate ///////////////
             case (cfg.op_type)
 
                 MACC: begin
                     partial_output = weight * input_reg;
-                    output_register_n = output_register + partial_output;
+                    output_register_n = current_value + partial_output;
                 end
 
                 MAXPOOL: begin
-                    if (output_register > input_reg) begin
+                    if (current_value > input_reg) begin
                         output_register_n = input_reg;
                     end
                 end
 
                 AVGPOOL: begin
-                    output_register_n = output_register + (input_reg / num_connections);
+                    output_register_n = current_value + (input_reg / num_connections);
                 end
 
                 ADD: begin
-                    output_register_n = output_register + input_reg;
+                    output_register_n = current_value + input_reg;
                 end
 
             endcase
