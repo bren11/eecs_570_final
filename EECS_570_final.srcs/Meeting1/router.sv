@@ -48,6 +48,8 @@ module ROUTER (
     [BITS_OF_OUTPUT_BUFFER_SIZE] head_backward_prop;
     [BITS_OF_OUTPUT_BUFFER_SIZE] head_backward_prop_n;
 
+    // TODO: we might not need a tail since the buffer will be 100% full all the time, we can use
+    // head_backward_prop to add new entries
     [BITS_OF_OUTPUT_BUFFER_SIZE] tail;
     [BITS_OF_OUTPUT_BUFFER_SIZE] tail_n;
 
@@ -65,6 +67,13 @@ module ROUTER (
 
     logic [`LAYER_SIZE-1:0] target_input_forwards;
     logic [`LAYER_SIZE-1:0] target_input_backwards;
+
+    ACTIVATION_VALUE multiply_gradient_input;
+    ACTIVATION_VALUE [`LAYER_SIZE-1:0] multiply_weight_inputs;
+    ACTIVATION_VALUE [`LAYER_SIZE-1:0] weight_gradients;
+
+    logic [`LAYER_BITS-1:0] neuron_of_multiplying_gradient;
+    logic [`LAYER_BITS-1:0] [`LAYER_SIZE-1:0] neuron_of_multiplying_weights
 
 
     assign incoming_req_forwards = output_ready_forwards & ~pass_completion_forwards;
@@ -84,7 +93,7 @@ module ROUTER (
 
     // priority selector to choose which output gets broadcasted today
     for (genvar i = 0; i < `LAYER_SIZE; ++i) begin
-        assign outgoing_req_backwards =  ~pass_completion & output_buffer_backwards[i].valid;
+        assign outgoing_req_backwards =  ~pass_completion_backwards & output_buffer_backwards[i].valid;
     end
     priority_selector #(1, `LAYER_SIZE) backwards_sel (
         .req(outgoing_req_backwards),
@@ -105,6 +114,7 @@ module ROUTER (
         output_buffer_forwards_n = output_buffer_backwards;
         data_received_ack_backwards = ~(0);
         weights_out_backwards = 0;
+        multiply_weight_gradient = 0;
 
 
         /////////////////// INCOMING ///////////////////////////
@@ -174,14 +184,32 @@ module ROUTER (
         // BACKWARDS
         if(~neuron_stall_forwards) begin
             for (int i = 0; i < `LAYER_SIZE; ++i) begin
+                // pick one to broadcast
                 if (granted_outgoing_backwards[i]) begin
+
+                    //////////// broadcast on bus /////////////
                     bus_out_backwards.valid = 1'b1;
                     bus_out_backwards.value = output_buffer_backwards[i].value;
                     bus_out_forwards.neuron_num = i;
-
                     // we need to send all of the weights that connect the previous node to this node
                     for (int weight_from_idx; weight_from_idx < `LAYER_SIZE; ++weight_from_idx) begin
                         weights_out = weights[weight_from_idx][i];
+                    end
+
+                    //////////// send to multipliers /////////////
+
+                    multiply_gradient_input = output_buffer_backwards[i].value;
+                    neuron_of_multiplying_gradient = i;
+                    
+                    for (int head_idx = 0; head_idx < NUMBER_OF_CONNECTIONS; ++i) begin
+                        multiply_weight_inputs[(head_backward_prop + head_idx) % `LAYER_NUM] = output_buffer_forwards[head_backward_prop + head_idx].value;
+                        neuron_of_multiplying_weights[(head_backward_prop + head_idx) % `LAYER_NUM] = output_buffer_forwards[head_backward_prop + head_idx].neuron_num;
+                    end
+
+                    if (head_idx + NUMBER_OF_CONNECTIONS > SIZE_OF_BUFFER) begin
+                        head_backward_prop_n = NUMBER_OF_CONNECTIONS - (SIZE_OF_BUFFER - head_backward_prop);
+                    end else begin
+                        head_backward_prop_n = head_backward_prop + NUMBER_OF_CONNECTIONS;
                     end
                 end
             end
@@ -195,6 +223,13 @@ module ROUTER (
     end
 
 
+    // TODO: MIGHT WANT TO BE PIPLINED WITH INPUT SELECTION LOGIC
+    /////////////////// MULTIPLIERS ///////////////////////////////////////
+    for (genvar i = 0; i < `LAYER_SIZE; ++i) begin
+        weight_gradients[i] = multiply_weight_inputs[i] * multiply_gradient_input;
+        weights_updating_n[neuron_of_multiplying_weights[i]][neuron_of_multiplying_gradient] = weights_updating[neuron_of_multiplying_weights[i]][neuron_of_multiplying_gradient] - LEARNING_RATE_CONFIG * weight_gradients[i];
+    end
+    ///////////////////////////////////////////////////////////////////////
 
     always_ff @(posedge clk) begin
         if (rst) begin
