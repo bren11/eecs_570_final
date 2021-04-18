@@ -25,13 +25,19 @@ typedef struct packed {
     //logic valid;
     ACTIVATION_VALUE value;
     logic [`LAYER_BITS-1:0] neuron_num;
-} ACTIVATION_ENTRY;
+} ACTIVATION_ENTRY_FORWARDS;
+
+typedef struct packed {
+    logic valid;
+    ACTIVATION_VALUE value;
+    //logic [`LAYER_BITS-1:0] neuron_num;
+} ACTIVATION_ENTRY_BACKWARDS;
 
 
 typedef struct packed {
     logic valid;
     logic [`LAYER_BITS-1:0] neuron_num;
-    ACTIVATION_VALUE value;
+    ACTIVATION_VALUE value; 
 } BUS_PACKET;
 
 typedef enum logic [2:0] {
