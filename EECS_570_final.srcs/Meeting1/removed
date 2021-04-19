@@ -1,0 +1,53 @@
+                case (n_internal_it)
+                    2'b00: begin
+                        if (n_config.node_id <= layers[n_layer_it].size.height) begin
+                            n_config.op_type = MACC;
+                            n_config.connection_mask = 0;
+                            for (int c = 0; c < (n_prev_size.height + 1) * (n_prev_size.width + 1) * (n_prev_size.depth + 1); c++) begin
+                                n_config.connection_mask[c] = `TRUE;
+                                n_config.weights[c] = 1;
+                            end
+                        end
+                    end
+                    2'b01: begin
+                        if (n_config.node_id <= layers[n_layer_it].size.height) begin
+                            n_config.op_type = MACC;
+                            for (int c = 0; c < (n_prev_size.height + 1) * (n_prev_size.width + 1) * (n_prev_size.depth + 1); c++) begin
+                                n_config.connection_mask[c] = `TRUE;
+                                n_config.weights[c] = 1;
+                            end
+                        end else if (n_config.node_id < ((n_prev_size.height + 1) * (n_prev_size.width + 1) * (n_prev_size.depth + 1) * 2)) begin
+                            n_config.op_type = ADD;
+                            n_config.connection_mask[n_config.node_id] = `TRUE;
+                            n_config.weights[n_config.node_id] = 1;
+                        end
+                    end
+                    2'b10: begin
+                        if (n_config.node_id <= layers[n_layer_it].size.height) begin
+                            n_config.op_type = ADD;
+                            for (int c = 0; c < (n_prev_size.height + 1) * (n_prev_size.width + 1) * (n_prev_size.depth + 1) * 2; c++) begin
+                                n_config.connection_mask[c] = `TRUE;
+                                n_config.weights = 1;
+                            end
+                        end
+                    end
+                endcase
+
+
+
+                end L_CONV: begin
+                        //TODO
+                    end L_MAXPOOL: begin
+                        n_prev_size = layers[layer_it].size;
+                        n_layer_it = layer_it + 1; 
+                    end L_AVGPOOL: begin
+                        n_prev_size = layers[layer_it].size;
+                        n_layer_it = layer_it + 1; 
+                    end L_RESIDUAL: begin
+                        n_prev_size = layers[layer_it].size;
+                        if (internal_it == 2'b10) begin
+                            n_layer_it = layer_it + 1;
+                            n_internal_it = 0;
+                        end else
+                            n_internal_it = internal_it + 1;
+                    end

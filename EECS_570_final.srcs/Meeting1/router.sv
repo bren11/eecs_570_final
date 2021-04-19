@@ -2,27 +2,25 @@
 module ROUTER (
                 input clk,
                 input rst,
+                input CONFIG            config_in,
 
                 // forward prop
                 input ACTIVATION_VALUE [`LAYER_SIZE-1:0] neuron_outputs,                               // output-value inputs from the previous layer
                 input [`LAYER_SIZE-1:0] output_ready_forwards,
                 input [`LAYER_SIZE-1:0] neuron_stall_forwards,
-                input CONFIG            config_in_forwards,
 
-                output ACTIVATION_VALUE [`LAYER_SIZE-1:0] weights_out_backwards,
-                BUS_PACKET bus_out_forwards,
+                output ACTIVATION_VALUE [`LAYER_SIZE-1:0] weights_out_forwards,
+                output BUS_PACKET bus_out_forwards,
                 output [`LAYER_SIZE-1:0] data_received_ack_forwards,         // probably want to rename signal back to previous layer for if we have space for a new output
                 
                 // backward prop
-                input ACTIVATION_VALUE [`LAYER_SIZE] losses,
-                input [`LAYER_SIZE-1:0] output_ready_backwards,
+                input ACTIVATION_VALUE [`LAYER_SIZE-1:0] losses,
                 input [`LAYER_SIZE-1:0] output_ready_backwards,
                 input [`LAYER_SIZE-1:0] neuron_stall_backwards,
-                input CONFIG            config_in_backwards,
 
                 output ACTIVATION_VALUE [`LAYER_SIZE-1:0] weights_out_backwards,
                 output [`LAYER_SIZE-1:0] data_received_ack_backwards,         // probably want to rename signal back to previous layer for if we have space for a new output
-                BUS_PACKET bus_out_backwards
+                output BUS_PACKET bus_out_backwards
             );
 
     parameter [`NUM_BITS-1:0] layer_id = 0;
@@ -72,13 +70,14 @@ module ROUTER (
     ACTIVATION_VALUE [`LAYER_SIZE-1:0] multiply_weight_inputs;
     ACTIVATION_VALUE [`LAYER_SIZE-1:0] weight_gradients;
 
-    logic [`LAYER_BITS-1:0] neuron_of_multiplying_gradient;
-    logic [`LAYER_BITS-1:0] [`LAYER_SIZE-1:0] neuron_of_multiplying_weights
+    logic update_grad;
+    logic [`LAYER_BITS:0] neuron_of_multiplying_gradient;
+    logic [`LAYER_BITS-1:0] [`LAYER_SIZE-1:0] neuron_of_multiplying_weights;
 
 
     assign incoming_req_forwards = output_ready_forwards & ~pass_completion_forwards;
     priority_selector #(1, `LAYER_SIZE) forward_sel (
-        .req(incoming_req_forward),
+        .req(incoming_req_forwards),
         .gnt_bus(granted_incoming_forwards)
     );
 
@@ -115,6 +114,9 @@ module ROUTER (
         data_received_ack_backwards = ~(0);
         weights_out_backwards = 0;
         multiply_weight_gradient = 0;
+        neuron_of_multiplying_gradient = 0;
+        multiply_gradient_input = 0;
+        update_grad = 0;
 
 
         /////////////////// INCOMING ///////////////////////////
@@ -146,7 +148,7 @@ module ROUTER (
         // BACKWARD
         // select the granted output, mark off on pass completion, leave in buffer slot
         for (int i = 0; i < `LAYER_SIZE; ++i) begin
-            if (incoming_req_forwards[i]) begin
+            if (incoming_req_backwards[i]) begin
                 // mark as complete
                 pass_completion_backwards_n[i] = 1'b1;
 
@@ -182,7 +184,7 @@ module ROUTER (
         end
 
         // BACKWARDS
-        if(~neuron_stall_forwards) begin
+        if(~neuron_stall_backwards) begin
             for (int i = 0; i < `LAYER_SIZE; ++i) begin
                 // pick one to broadcast
                 if (granted_outgoing_backwards[i]) begin
@@ -200,6 +202,7 @@ module ROUTER (
 
                     multiply_gradient_input = output_buffer_backwards[i].value;
                     neuron_of_multiplying_gradient = i;
+                    update_grad = `TRUE;
                     
                     for (int head_idx = 0; head_idx < NUMBER_OF_CONNECTIONS; ++i) begin
                         multiply_weight_inputs[(head_backward_prop + head_idx) % `LAYER_NUM] = output_buffer_forwards[head_backward_prop + head_idx].value;
@@ -226,8 +229,10 @@ module ROUTER (
     // TODO: MIGHT WANT TO BE PIPLINED WITH INPUT SELECTION LOGIC
     /////////////////// MULTIPLIERS ///////////////////////////////////////
     for (genvar i = 0; i < `LAYER_SIZE; ++i) begin
-        weight_gradients[i] = multiply_weight_inputs[i] * multiply_gradient_input;
-        weights_updating_n[neuron_of_multiplying_weights[i]][neuron_of_multiplying_gradient] = weights_updating[neuron_of_multiplying_weights[i]][neuron_of_multiplying_gradient] - LEARNING_RATE_CONFIG * weight_gradients[i];
+        if (update_grad) begin
+            weight_gradients[i] = multiply_weight_inputs[i] * multiply_gradient_input;
+            weights_updating_n[neuron_of_multiplying_weights[i]][neuron_of_multiplying_gradient] = weights_updating[neuron_of_multiplying_weights[i]][neuron_of_multiplying_gradient] - LEARNING_RATE_CONFIG * weight_gradients[i];
+        end
     end
     ///////////////////////////////////////////////////////////////////////
 
@@ -251,22 +256,19 @@ module ROUTER (
             end
 
         end else begin
-            if (config_in_forwards.valid && config_in_forwards.layer_id == layer_id)
-                target_input_forwards <= (target_input_forwards | config_in_forwards.connection_mask);
+            if (config_in_forwards.valid && config_in_forwards.layer_id == layer_id) begin
+                target_input_forwards <= (target_input_forwards | config_in.connection_mask);
+                target_input_backwards <= (target_input_backwards | config_in.output_mask);
+            end
             output_buffer_forwards <= output_buffer_forwards_n;
             pass_completion_forwards <= pass_completion_forwards_n;
             head_forward_prop <= head_forward_prop_n;
-
-            if (config_in_backwards.valid && config_in_backwards.layer_id == layer_id)
-                target_input_backwards <= (target_input_backwards | config_in_backwards.connection_mask);
+                
             output_buffer_backwards <= output_buffer_backwards_n;
             pass_completion_forwards <= pass_completion_backwards_n;
             head_backward_prop <= head_backward_prop_n;
 
             tail <= tail_n;
-
-            // TODO: this is a temp fix \/
-            weights <= weights; 
         end
     end
 
