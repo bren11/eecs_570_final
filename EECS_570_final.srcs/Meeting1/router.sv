@@ -33,7 +33,17 @@ module ROUTER (
     ACTIVATION_ENTRY_BACKWARDS [`LAYER_SIZE-1:0] output_buffer_backwards_n;
 
     // indexed by wights[from][to]
-    logic weight_swap_counter;
+    logic [(`NUM_BITS+1)-1:0] weight_swap_counter_forwards;
+    logic [(`NUM_BITS+1)-1:0] weight_swap_counter_backwards;
+    logic [(`NUM_BITS+1)-1:0] weight_swap_counter_forwards_n;
+    logic [(`NUM_BITS+1)-1:0] weight_swap_counter_backwards_n;
+
+    logic weight_update_ready_forwards;
+    logic weight_update_ready_backwards;
+
+    logic weight_update_stall_forwards;
+    logic weight_update_stall_backwards;
+
     ACTIVATION_VALUE [`LAYER_SIZE-1:0][`LAYER_SIZE-1:0][1:0] weights_versioning;
     
     // 0: fprop is in first buffer and bprop is in second; 0: vice-versa
@@ -85,16 +95,29 @@ module ROUTER (
     assign weights_forwards = fprop_location ? weights_versioning[1] : weights_versioning[0];
     assign weights_backwards = fprop_location ? weights_versioning[0] : weights_versioning[1];
 
+    assign weights_versioning_n[1] = fprop_location ? weights_forwards_n : weights_backwards_n;
+    assign weights_versioning_n[0] = fprop_location ? weights_backwards_n : weights_forwards_n;
+
+    assign weight_update_ready_forwards = &(weight_swap_counter_forwards);
+    assign weight_update_ready_backwards = &(weight_swap_counter_backwards);
+
+    assign weight_update_stall_forwards = weight_update_ready_forwards & ~weight_update_ready_backwards;
+    assign weight_update_stall_backwards = weight_update_ready_backwards & ~weight_update_ready_forwards;
+
     always_comb begin
         weights_versioning_n = weights_versioning;
-        weight_swap_counter_n = weight_swap_counter + 1;
+
+        weight_swap_counter_forwards_n = weight_swap_counter_forwards;
+        weight_swap_counter_backwards_n = weight_swap_counter_backwards;
         fprop_location_n = fprop_location;
 
-        if (weight_swap_counter == TURNAROUND_CYCLYES) begin
-            weight_swap_counter_n = 0;
+        if(weight_update_ready_forwards & weight_update_ready_backwards) begin
+            weight_swap_counter_forwards_n = 0;
+            weight_swap_counter_backwards_n = 0;
             fprop_location_n = ~fprop_location;
-        end
 
+            weights_backwards_n = weights_updating;
+        end
     end
 
 
@@ -190,7 +213,7 @@ module ROUTER (
         /////////////////// OUTGOING ///////////////////////////
 
         // FORWARDS
-        if(~(neuron_stall_forwards)) begin
+        if(~(neuron_stall_forwards) & ~weight_update_stall_forwards) begin
             // if no one is full just send out the thing at the head
             bus_out_forwards.valid = 1'b1;
             bus_out_forwards.value = output_buffer_forwards[head_forward_prop].value;
@@ -198,7 +221,7 @@ module ROUTER (
             weights_out_forwards = weights_forwards[output_buffer_forwards[head_forward_prop].neuron_num]; 
 
             // increment head
-            if (tail != `LAYER_SIZE - 1) begin
+            if (head_forward_prop != `LAYER_SIZE - 1) begin
                 head_forward_prop_n = head_forward_prop + 1;
             end else begin
                 head_forward_prop_n = 0;
@@ -207,10 +230,15 @@ module ROUTER (
 
         if(pass_completion_forwards == target_input_forwards) begin
             pass_completion_forwards_n = 0;
+
+            weight_swap_counter_forwards_n = weight_swap_counter_forwards + 1;
+            if(weight_update_ready_forwards & weight_update_ready_backwards) begin
+                weight_swap_counter_forwards_n = 0;
+            end
         end
 
         // BACKWARDS
-        if(~neuron_stall_backwards) begin
+        if(~neuron_stall_backwards & ~weight_update_stall_backwards) begin
             for (int i = 0; i < `LAYER_SIZE; ++i) begin
                 // pick one to broadcast
                 if (granted_outgoing_backwards[i]) begin
@@ -231,21 +259,26 @@ module ROUTER (
                     update_grad = `TRUE;
                     
                     for (int head_idx = 0; head_idx < NUMBER_OF_CONNECTIONS; ++i) begin
-                        multiply_weight_inputs[(head_backward_prop + head_idx) % `LAYER_NUM] = output_buffer_forwards[head_backward_prop + head_idx].value;
+                        multiply_outputs_inputs[(head_backward_prop + head_idx) % `LAYER_NUM] = output_buffer_forwards[head_backward_prop + head_idx].value;
                         neuron_of_multiplying_weights[(head_backward_prop + head_idx) % `LAYER_NUM] = output_buffer_forwards[head_backward_prop + head_idx].neuron_num;
                     end
 
-                    if (head_idx + NUMBER_OF_CONNECTIONS > SIZE_OF_BUFFER) begin
-                        head_backward_prop_n = NUMBER_OF_CONNECTIONS - (SIZE_OF_BUFFER - head_backward_prop);
-                    end else begin
-                        head_backward_prop_n = head_backward_prop + NUMBER_OF_CONNECTIONS;
-                    end
                 end
             end
         end
 
         if(pass_completion_backwards == target_input_backwards) begin
             pass_completion_backwards_n = 0;
+            weight_swap_counter_backwards_n = weight_swap_counter_backwards + 1;
+            if(weight_update_ready_forwards & weight_update_ready_backwards) begin
+                weight_swap_counter_backwards_n = 0;
+            end
+
+            if (head_idx + NUMBER_OF_CONNECTIONS > SIZE_OF_BUFFER) begin
+                    head_backward_prop_n = NUMBER_OF_CONNECTIONS - (SIZE_OF_BUFFER - head_backward_prop);
+            end else begin
+                    head_backward_prop_n = head_backward_prop + NUMBER_OF_CONNECTIONS;
+            end
         end
 
         ///////////////////////////////////////////////////////////////////
@@ -254,12 +287,12 @@ module ROUTER (
 
     // TODO: MIGHT WANT TO BE PIPLINED WITH INPUT SELECTION LOGIC
     /////////////////// MULTIPLIERS ///////////////////////////////////////
+    ACTIVATION [`LAYER_SIZE-1:0] scaled_weights;
     for (genvar i = 0; i < `LAYER_SIZE; ++i) begin
-        if (update_grad) begin
-            weight_gradients[i] = multiply_weight_inputs[i] * multiply_gradient_input;
-            weights_updating_n[neuron_of_multiplying_weights[i]][neuron_of_multiplying_gradient] = weights_updating[neuron_of_multiplying_weights[i]][neuron_of_multiplying_gradient] - LEARNING_RATE_CONFIG * weight_gradients[i];
-        end
+        assign weight_gradients[i] = update_grad ? multiply_outputs_inputs[i] * multiply_gradient_input : 0;
+        assign weights_updating_n[neuron_of_multiplying_weights[i]][neuron_of_multiplying_gradient] = weights_updating[neuron_of_multiplying_weights[i]][neuron_of_multiplying_gradient] - LEARNING_RATE_CONFIG * weight_gradients[i];
     end
+
     ///////////////////////////////////////////////////////////////////////
 
     always_ff @(posedge clk) begin
