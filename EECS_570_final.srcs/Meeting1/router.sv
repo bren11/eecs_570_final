@@ -33,7 +33,14 @@ module ROUTER (
     ACTIVATION_ENTRY_BACKWARDS [`LAYER_SIZE-1:0] output_buffer_backwards_n;
 
     // indexed by wights[from][to]
-    ACTIVATION_VALUE [`LAYER_SIZE-1:0][`LAYER_SIZE-1:0] weights;
+    logic weight_swap_counter;
+    ACTIVATION_VALUE [`LAYER_SIZE-1:0][`LAYER_SIZE-1:0][1:0] weights_versioning;
+    
+    // 0: fprop is in first buffer and bprop is in second; 0: vice-versa
+    logic fprop_location;
+
+    ACTIVATION_VALUE [`LAYER_SIZE-1:0][`LAYER_SIZE-1:0] weights_forwards;
+    ACTIVATION_VALUE [`LAYER_SIZE-1:0][`LAYER_SIZE-1:0] weights_backwards;
 
     ACTIVATION_VALUE [`LAYER_SIZE-1:0][`LAYER_SIZE-1:0] weights_updating;
     ACTIVATION_VALUE [`LAYER_SIZE-1:0][`LAYER_SIZE-1:0] weights_updating_n;
@@ -73,6 +80,25 @@ module ROUTER (
     logic update_grad;
     logic [`LAYER_BITS:0] neuron_of_multiplying_gradient;
     logic [`LAYER_BITS-1:0] [`LAYER_SIZE-1:0] neuron_of_multiplying_weights;
+
+    /////////////////// WEIGHT VERSIONING ///////////////////////////////
+    assign weights_forwards = fprop_location ? weights_versioning[1] : weights_versioning[0];
+    assign weights_backwards = fprop_location ? weights_versioning[0] : weights_versioning[1];
+
+    always_comb begin
+        weights_versioning_n = weights_versioning;
+        weight_swap_counter_n = weight_swap_counter + 1;
+        fprop_location_n = fprop_location;
+
+        if (weight_swap_counter == TURNAROUND_CYCLYES) begin
+            weight_swap_counter_n = 0;
+            fprop_location_n = ~fprop_location;
+        end
+
+    end
+
+
+    ///////////////////////////////////////////////////////////////////////////
 
 
     assign incoming_req_forwards = output_ready_forwards & ~pass_completion_forwards;
@@ -169,7 +195,7 @@ module ROUTER (
             bus_out_forwards.valid = 1'b1;
             bus_out_forwards.value = output_buffer_forwards[head_forward_prop].value;
             bus_out_forwards.neuron_num = output_buffer_forwards[head_forward_prop].neuron_num;
-            weights_out = weights[output_buffer_forwards[head_forward_prop].neuron_num]; 
+            weights_out_forwards = weights_forwards[output_buffer_forwards[head_forward_prop].neuron_num]; 
 
             // increment head
             if (tail != `LAYER_SIZE - 1) begin
@@ -195,7 +221,7 @@ module ROUTER (
                     bus_out_forwards.neuron_num = i;
                     // we need to send all of the weights that connect the previous node to this node
                     for (int weight_from_idx; weight_from_idx < `LAYER_SIZE; ++weight_from_idx) begin
-                        weights_out = weights[weight_from_idx][i];
+                        weights_out_backwards = weights_backwards[weight_from_idx][i];
                     end
 
                     //////////// send to multipliers /////////////
