@@ -16,6 +16,8 @@
 
 `define INPUT_BUFFER_SIZE `LAYER_SIZE
 
+`define SD #1
+
 //
 //`define ACTIVATION_VALUE logic [`VAL_WIDTH-1:0];
 

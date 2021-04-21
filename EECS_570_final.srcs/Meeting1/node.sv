@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 `include "types.sv"
 module NODE ( input             clk,
               input             rst,
@@ -7,7 +8,7 @@ module NODE ( input             clk,
             
               output done,
               output full,
-              output ACTIVATION_VALUE output_comb
+              output ACTIVATION_VALUE output_register
             );
 
     parameter [`LAYER_BITS-1:0] node_id = 0;
@@ -57,7 +58,7 @@ module NODE ( input             clk,
         weight = 0;
         act = 0;
         partial_output = 0;
-        output_register_n = output_comb;
+        output_register_n = output_register;
 
         n_input_buffer = input_buffer;
         n_head = head;
@@ -125,35 +126,25 @@ module NODE ( input             clk,
 
     end
 
-    // apply relu to output reg to get output comb
-    ACTIVATION_VALUE added_bias;
-    always_comb begin
-        output_comb = 0;
-        added_bias = output_register + cfg.bias;
-        if (added_bias > 0) begin
-            output_comb = added_bias;
-        end
-    end
-
     always_ff @(posedge clk) begin
         if (rst) begin
-            cfg <= 0;
-            input_buffer <= 0;
-            head <= 0;
-            tail <= 0;
-            completed_inputs <= 0;
-            num_connections <= 0;
+            cfg <= `SD 0;
+            input_buffer <= `SD 0;
+            head <= `SD 0;
+            tail <= `SD 0;
+            completed_inputs <= `SD 0;
+            num_connections <= `SD 0;
 
         end else begin
-            input_buffer <= n_input_buffer;
-            head <= n_head;
-            tail <= n_tail;
-            completed_inputs <= n_completed_inputs;
-            output_register <= output_register_n;
-            num_connections <= num_connections_n;
+            input_buffer <= `SD n_input_buffer;
+            head <= `SD n_head;
+            tail <= `SD n_tail;
+            completed_inputs <= `SD n_completed_inputs;
+            output_register <= `SD output_register_n;
+            num_connections <= `SD num_connections_n;
 
             if (config_in.valid & node_id == config_in.node_id && layer_id == config_in.layer_id)
-                cfg <= config_in;
+                cfg <= `SD config_in;
         end
     end
 

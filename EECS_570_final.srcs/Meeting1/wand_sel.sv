@@ -1,7 +1,7 @@
 /*
    wand_sel - Priority selector module.
 */
-`timescale 1ns/100ps
+`timescale 1ns / 1ps
 module wand_sel (req,gnt);
   //synopsys template
   parameter WIDTH=64;

@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 `include "types.sv"
 module ROUTER (
                 input clk,
@@ -23,6 +24,7 @@ module ROUTER (
     logic [`LAYER_SIZE-1:0] granted_output;
 
     logic [`LAYER_SIZE-1:0] target_input;
+    logic [`LAYER_SIZE-1:0] target_input_n;
     
     for(genvar i = 0; i < `LAYER_SIZE; ++i) begin
         assign full[i] = output_buffer[i].valid; 
@@ -75,23 +77,21 @@ module ROUTER (
     end
 
     ///////////////////////////////////////////////////////////////////
-
+    assign target_input_n = target_input | config_in.connection_mask;
 
     always_ff @(posedge clk) begin
         if (rst) begin
-            for (int i = 0; i < `LAYER_SIZE; i++) begin
-                output_buffer[i] = 0;
-            end
-            pass_completion <= 0;
-            target_input <= 0;
+            output_buffer <= `SD 0;
+            pass_completion <= `SD 0;
+            target_input <= `SD 0;
         end else begin
             if (config_in.valid && config_in.layer_id == layer_id)
-                target_input <= (target_input | config_in.connection_mask);
-            output_buffer <= output_buffer_n;
-            pass_completion <= pass_completion_n;
+                target_input <= `SD target_input_n;
+            output_buffer <= `SD output_buffer_n;
+            pass_completion <= `SD pass_completion_n;
         end
     end
 
 
 
-endmodule;
+endmodule

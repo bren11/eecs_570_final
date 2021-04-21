@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 `define NUM_PASSES 32
 
 module testbench;
@@ -101,4 +102,4 @@ initial begin
 end
 
 
-endmodule;
+endmodule

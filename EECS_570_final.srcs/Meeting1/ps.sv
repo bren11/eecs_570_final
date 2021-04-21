@@ -7,7 +7,7 @@
   number of simultaneous requests granted (REQS).
  */
 
-`timescale 1ns/100ps
+`timescale 1ns / 1ps
 module priority_selector ( // Inputs
                   req,
                  

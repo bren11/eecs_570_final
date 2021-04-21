@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 `include "types.sv"
 
 module CONTROLLER ( input                                       clk,
@@ -63,9 +64,9 @@ module CONTROLLER ( input                                       clk,
         end
         for(genvar j = 0; j < `LAYER_SIZE; j++) begin
             if (i == `LAYER_NUM - 1)
-                NODE #(.layer_id(i), .node_id(j)) n1(.clk(clk), .rst(rst), .bus_in(bus[i]), .config_in(cfg), .router_full(out_ready[j]), .done(ready[i][j]), .full(neuron_full[i][j]), .output_comb(values[i][j]));
+                NODE #(.layer_id(i), .node_id(j)) n1(.clk(clk), .rst(rst), .bus_in(bus[i]), .config_in(cfg), .router_full(out_ready[j]), .done(ready[i][j]), .full(neuron_full[i][j]), .output_register(values[i][j]));
             else
-                NODE #(.layer_id(i), .node_id(j)) n2(.clk(clk), .rst(rst), .bus_in(bus[i]), .config_in(cfg), .router_full(router_full[i+1][j]), .done(ready[i][j]), .full(neuron_full[i][j]), .output_comb(values[i][j])); 
+                NODE #(.layer_id(i), .node_id(j)) n2(.clk(clk), .rst(rst), .bus_in(bus[i]), .config_in(cfg), .router_full(router_full[i+1][j]), .done(ready[i][j]), .full(neuron_full[i][j]), .output_register(values[i][j])); 
         end
     end
 
@@ -135,7 +136,7 @@ module CONTROLLER ( input                                       clk,
         /////////////////// DETERMINE CONFIG //////////////////////////
         case (layers[n_layer_it].layer_type)
             L_NONE: begin
-                if (n_config.node_id < (n_prev_size.height + 1) * (n_prev_size.width + 1) * (n_prev_size.depth + 1)) begin
+                if (n_config.node_id < (n_prev_size.height + 1)) begin
                     n_config.op_type = ADD;
                     n_config.connection_mask[n_config.node_id] = `TRUE;
                     n_config.weights[n_config.node_id] = 1;
@@ -144,7 +145,7 @@ module CONTROLLER ( input                                       clk,
             L_LINEAR: begin
                 if (n_config.node_id <= layers[n_layer_it].size.height) begin
                     n_config.op_type = MACC;
-                    for (int c = 0; c < (n_prev_size.height + 1) * (n_prev_size.width + 1) * (n_prev_size.depth + 1); c++) begin
+                    for (int c = 0; c < (n_prev_size.height + 1); c++) begin
                         n_config.connection_mask[c] = `TRUE;
                         n_config.weights[c] = 1;
                     end
@@ -158,7 +159,7 @@ module CONTROLLER ( input                                       clk,
                         if (n_config.node_id <= layers[n_layer_it].size.height) begin
                             n_config.op_type = MACC;
                             n_config.connection_mask = 0;
-                            for (int c = 0; c < (n_prev_size.height + 1) * (n_prev_size.width + 1) * (n_prev_size.depth + 1); c++) begin
+                            for (int c = 0; c < (n_prev_size.height + 1); c++) begin
                                 n_config.connection_mask[c] = `TRUE;
                                 n_config.weights[c] = 1;
                             end
@@ -167,11 +168,11 @@ module CONTROLLER ( input                                       clk,
                     2'b01: begin
                         if (n_config.node_id <= layers[n_layer_it].size.height) begin
                             n_config.op_type = MACC;
-                            for (int c = 0; c < (n_prev_size.height + 1) * (n_prev_size.width + 1) * (n_prev_size.depth + 1); c++) begin
+                            for (int c = 0; c < (n_prev_size.height + 1); c++) begin
                                 n_config.connection_mask[c] = `TRUE;
                                 n_config.weights[c] = 1;
                             end
-                        end else if (n_config.node_id < ((n_prev_size.height + 1) * (n_prev_size.width + 1) * (n_prev_size.depth + 1) * 2)) begin
+                        end else if (n_config.node_id < ((n_prev_size.height + 1) * 2)) begin
                             n_config.op_type = ADD;
                             n_config.connection_mask[n_config.node_id] = `TRUE;
                             n_config.weights[n_config.node_id] = 1;
@@ -180,7 +181,7 @@ module CONTROLLER ( input                                       clk,
                     2'b10: begin
                         if (n_config.node_id <= layers[n_layer_it].size.height) begin
                             n_config.op_type = ADD;
-                            for (int c = 0; c < (n_prev_size.height + 1) * (n_prev_size.width + 1) * (n_prev_size.depth + 1) * 2; c++) begin
+                            for (int c = 0; c < (n_prev_size.height + 1) * 2; c++) begin
                                 n_config.connection_mask[c] = `TRUE;
                                 n_config.weights = 1;
                             end
@@ -197,23 +198,23 @@ module CONTROLLER ( input                                       clk,
 
     always_ff @(posedge clk) begin
         if (rst) begin
-            layer_it <= 0;
-            output_layer <= 0;
-            out_ready <= 0;
-            cfg <= 0;
-            setup <= 1;
-            internal_it <= 0;
-            prev_size <= input_size;
+            layer_it <= `SD 0;
+            output_layer <= `SD 0;
+            out_ready <= `SD 0;
+            cfg <= `SD 0;
+            setup <= `SD 1;
+            internal_it <= `SD 0;
+            prev_size <= `SD input_size;
 
         end else begin
-            layer_it <= n_layer_it;
-            output_layer <= n_output_layer;
-            out_ready <= n_out_ready;
-            cfg <= n_config;
-            internal_it <= n_internal_it;
-            prev_size <= n_prev_size;
+            layer_it <= `SD n_layer_it;
+            output_layer <= `SD n_output_layer;
+            out_ready <= `SD n_out_ready;
+            cfg <= `SD n_config;
+            internal_it <= `SD n_internal_it;
+            prev_size <= `SD n_prev_size;
             if (n_config.valid)
-                setup <= 0;
+                setup <= `SD 0;
         end
     end
 
