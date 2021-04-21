@@ -12,15 +12,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="3854341fs"></ZoomStartTime>
-      <ZoomEndTime time="4257704fs"></ZoomEndTime>
-      <Cursor1Time time="4035000fs"></Cursor1Time>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="9000001fs"></ZoomEndTime>
+      <Cursor1Time time="9000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="212"></NameColumnWidth>
-      <ValueColumnWidth column_width="102"></ValueColumnWidth>
+      <NameColumnWidth column_width="206"></NameColumnWidth>
+      <ValueColumnWidth column_width="86"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="53" />
+   <WVObjectSize size="16" />
    <wvobject fp_name="/testbench/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -34,8 +34,8 @@
       <obj_property name="ObjectShortName">layers[7:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/testbench/input_size" type="array">
-      <obj_property name="ElementShortName">input_size</obj_property>
-      <obj_property name="ObjectShortName">input_size</obj_property>
+      <obj_property name="ElementShortName">input_size[4:0]</obj_property>
+      <obj_property name="ObjectShortName">input_size[4:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/testbench/input_valid" type="logic">
       <obj_property name="ElementShortName">input_valid</obj_property>
@@ -44,135 +44,6 @@
    <wvobject fp_name="/testbench/input_layer" type="array">
       <obj_property name="ElementShortName">input_layer[31:0][31:0]</obj_property>
       <obj_property name="ObjectShortName">input_layer[31:0][31:0]</obj_property>
-      <wvobject fp_name="/testbench/input_layer[31]" type="array">
-         <obj_property name="ElementShortName">[31][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[31][31:0]</obj_property>
-         <obj_property name="isExpanded"></obj_property>
-      </wvobject>
-      <wvobject fp_name="/testbench/input_layer[30]" type="array">
-         <obj_property name="ElementShortName">[30][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[30][31:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testbench/input_layer[29]" type="array">
-         <obj_property name="ElementShortName">[29][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[29][31:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testbench/input_layer[28]" type="array">
-         <obj_property name="ElementShortName">[28][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[28][31:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testbench/input_layer[27]" type="array">
-         <obj_property name="ElementShortName">[27][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[27][31:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testbench/input_layer[26]" type="array">
-         <obj_property name="ElementShortName">[26][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[26][31:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testbench/input_layer[25]" type="array">
-         <obj_property name="ElementShortName">[25][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[25][31:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testbench/input_layer[24]" type="array">
-         <obj_property name="ElementShortName">[24][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[24][31:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testbench/input_layer[23]" type="array">
-         <obj_property name="ElementShortName">[23][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[23][31:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testbench/input_layer[22]" type="array">
-         <obj_property name="ElementShortName">[22][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[22][31:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testbench/input_layer[21]" type="array">
-         <obj_property name="ElementShortName">[21][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[21][31:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testbench/input_layer[20]" type="array">
-         <obj_property name="ElementShortName">[20][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[20][31:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testbench/input_layer[19]" type="array">
-         <obj_property name="ElementShortName">[19][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[19][31:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testbench/input_layer[18]" type="array">
-         <obj_property name="ElementShortName">[18][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[18][31:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testbench/input_layer[17]" type="array">
-         <obj_property name="ElementShortName">[17][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[17][31:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testbench/input_layer[16]" type="array">
-         <obj_property name="ElementShortName">[16][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[16][31:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testbench/input_layer[15]" type="array">
-         <obj_property name="ElementShortName">[15][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[15][31:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testbench/input_layer[14]" type="array">
-         <obj_property name="ElementShortName">[14][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[14][31:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testbench/input_layer[13]" type="array">
-         <obj_property name="ElementShortName">[13][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[13][31:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testbench/input_layer[12]" type="array">
-         <obj_property name="ElementShortName">[12][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[12][31:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testbench/input_layer[11]" type="array">
-         <obj_property name="ElementShortName">[11][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[11][31:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testbench/input_layer[10]" type="array">
-         <obj_property name="ElementShortName">[10][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[10][31:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testbench/input_layer[9]" type="array">
-         <obj_property name="ElementShortName">[9][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[9][31:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testbench/input_layer[8]" type="array">
-         <obj_property name="ElementShortName">[8][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[8][31:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testbench/input_layer[7]" type="array">
-         <obj_property name="ElementShortName">[7][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[7][31:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testbench/input_layer[6]" type="array">
-         <obj_property name="ElementShortName">[6][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[6][31:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testbench/input_layer[5]" type="array">
-         <obj_property name="ElementShortName">[5][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[5][31:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testbench/input_layer[4]" type="array">
-         <obj_property name="ElementShortName">[4][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[4][31:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testbench/input_layer[3]" type="array">
-         <obj_property name="ElementShortName">[3][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[3][31:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testbench/input_layer[2]" type="array">
-         <obj_property name="ElementShortName">[2][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[2][31:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testbench/input_layer[1]" type="array">
-         <obj_property name="ElementShortName">[1][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[1][31:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/testbench/input_layer[0]" type="array">
-         <obj_property name="ElementShortName">[0][31:0]</obj_property>
-         <obj_property name="ObjectShortName">[0][31:0]</obj_property>
-      </wvobject>
    </wvobject>
    <wvobject fp_name="/testbench/input_accept" type="logic">
       <obj_property name="ElementShortName">input_accept</obj_property>
@@ -185,184 +56,33 @@
    <wvobject fp_name="/testbench/output_layer" type="array">
       <obj_property name="ElementShortName">output_layer[31:0][31:0]</obj_property>
       <obj_property name="ObjectShortName">output_layer[31:0][31:0]</obj_property>
-      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/input_valid_back" type="logic">
+      <obj_property name="ElementShortName">input_valid_back</obj_property>
+      <obj_property name="ObjectShortName">input_valid_back</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/input_layer_back" type="array">
+      <obj_property name="ElementShortName">input_layer_back[31:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">input_layer_back[31:0][31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench/input_accept_back" type="logic">
+      <obj_property name="ElementShortName">input_accept_back</obj_property>
+      <obj_property name="ObjectShortName">input_accept_back</obj_property>
    </wvobject>
    <wvobject fp_name="/testbench/ctrler/cfg" type="array">
       <obj_property name="ElementShortName">cfg</obj_property>
       <obj_property name="ObjectShortName">cfg</obj_property>
-      <obj_property name="isExpanded"></obj_property>
    </wvobject>
    <wvobject fp_name="/testbench/ctrler/setup" type="logic">
       <obj_property name="ElementShortName">setup</obj_property>
       <obj_property name="ObjectShortName">setup</obj_property>
    </wvobject>
-   <wvobject fp_name="/testbench/ctrler/prev_size" type="array">
-      <obj_property name="ElementShortName">prev_size</obj_property>
-      <obj_property name="ObjectShortName">prev_size</obj_property>
+   <wvobject fp_name="/testbench/ctrler/bus_forward" type="array">
+      <obj_property name="ElementShortName">bus_forward[7:0]</obj_property>
+      <obj_property name="ObjectShortName">bus_forward[7:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/testbench/ctrler/out_ready" type="array">
-      <obj_property name="ElementShortName">out_ready[31:0]</obj_property>
-      <obj_property name="ObjectShortName">out_ready[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/prev_size" type="array">
-      <obj_property name="ElementShortName">prev_size</obj_property>
-      <obj_property name="ObjectShortName">prev_size</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/target_ready" type="array">
-      <obj_property name="ElementShortName">target_ready[31:0]</obj_property>
-      <obj_property name="ObjectShortName">target_ready[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/prev_size" type="array">
-      <obj_property name="ElementShortName">prev_size</obj_property>
-      <obj_property name="ObjectShortName">prev_size</obj_property>
-      <obj_property name="isExpanded"></obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/target_ready" type="array">
-      <obj_property name="ElementShortName">target_ready[31:0]</obj_property>
-      <obj_property name="ObjectShortName">target_ready[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[0].genblk1.r1 /bus_out" type="array">
-      <obj_property name="ElementShortName">bus_out</obj_property>
-      <obj_property name="ObjectShortName">bus_out</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[2].genblk1.r2 /bus_out" type="array">
-      <obj_property name="ElementShortName">bus_out</obj_property>
-      <obj_property name="ObjectShortName">bus_out</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[6].genblk1.r2 /bus_out" type="array">
-      <obj_property name="ElementShortName">bus_out</obj_property>
-      <obj_property name="ObjectShortName">bus_out</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[7].genblk1.r2 /bus_out" type="array">
-      <obj_property name="ElementShortName">bus_out</obj_property>
-      <obj_property name="ObjectShortName">bus_out</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[3].genblk1.r2 /bus_out" type="array">
-      <obj_property name="ElementShortName">bus_out</obj_property>
-      <obj_property name="ObjectShortName">bus_out</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[1].genblk1.r2 /bus_out" type="array">
-      <obj_property name="ElementShortName">bus_out</obj_property>
-      <obj_property name="ObjectShortName">bus_out</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[4].genblk1.r2 /bus_out" type="array">
-      <obj_property name="ElementShortName">bus_out</obj_property>
-      <obj_property name="ObjectShortName">bus_out</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[5].genblk1.r2 /bus_out" type="array">
-      <obj_property name="ElementShortName">bus_out</obj_property>
-      <obj_property name="ObjectShortName">bus_out</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[7].genblk2[0].genblk1.n1 /clk" type="logic">
-      <obj_property name="ElementShortName">clk</obj_property>
-      <obj_property name="ObjectShortName">clk</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[7].genblk2[0].genblk1.n1 /rst" type="logic">
-      <obj_property name="ElementShortName">rst</obj_property>
-      <obj_property name="ObjectShortName">rst</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[7].genblk2[0].genblk1.n1 /bus_in" type="array">
-      <obj_property name="ElementShortName">bus_in</obj_property>
-      <obj_property name="ObjectShortName">bus_in</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[7].genblk2[0].genblk1.n1 /config_in" type="array">
-      <obj_property name="ElementShortName">config_in</obj_property>
-      <obj_property name="ObjectShortName">config_in</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[7].genblk2[0].genblk1.n1 /router_full" type="logic">
-      <obj_property name="ElementShortName">router_full</obj_property>
-      <obj_property name="ObjectShortName">router_full</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[7].genblk2[0].genblk1.n1 /done" type="logic">
-      <obj_property name="ElementShortName">done</obj_property>
-      <obj_property name="ObjectShortName">done</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[7].genblk2[0].genblk1.n1 /full" type="logic">
-      <obj_property name="ElementShortName">full</obj_property>
-      <obj_property name="ObjectShortName">full</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[7].genblk2[0].genblk1.n1 /output_comb" type="array">
-      <obj_property name="ElementShortName">output_comb[31:0]</obj_property>
-      <obj_property name="ObjectShortName">output_comb[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[7].genblk2[0].genblk1.n1 /input_buffer" type="array">
-      <obj_property name="ElementShortName">input_buffer[31:0]</obj_property>
-      <obj_property name="ObjectShortName">input_buffer[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[7].genblk2[0].genblk1.n1 /n_input_buffer" type="array">
-      <obj_property name="ElementShortName">n_input_buffer[31:0]</obj_property>
-      <obj_property name="ObjectShortName">n_input_buffer[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[7].genblk2[0].genblk1.n1 /completed_inputs" type="array">
-      <obj_property name="ElementShortName">completed_inputs[31:0]</obj_property>
-      <obj_property name="ObjectShortName">completed_inputs[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[7].genblk2[0].genblk1.n1 /n_completed_inputs" type="array">
-      <obj_property name="ElementShortName">n_completed_inputs[31:0]</obj_property>
-      <obj_property name="ObjectShortName">n_completed_inputs[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[7].genblk2[0].genblk1.n1 /head" type="array">
-      <obj_property name="ElementShortName">head[4:0]</obj_property>
-      <obj_property name="ObjectShortName">head[4:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[7].genblk2[0].genblk1.n1 /n_head" type="array">
-      <obj_property name="ElementShortName">n_head[4:0]</obj_property>
-      <obj_property name="ObjectShortName">n_head[4:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[7].genblk2[0].genblk1.n1 /tail" type="array">
-      <obj_property name="ElementShortName">tail[4:0]</obj_property>
-      <obj_property name="ObjectShortName">tail[4:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[7].genblk2[0].genblk1.n1 /n_tail" type="array">
-      <obj_property name="ElementShortName">n_tail[4:0]</obj_property>
-      <obj_property name="ObjectShortName">n_tail[4:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[7].genblk2[0].genblk1.n1 /empty" type="logic">
-      <obj_property name="ElementShortName">empty</obj_property>
-      <obj_property name="ObjectShortName">empty</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[7].genblk2[0].genblk1.n1 /weight" type="array">
-      <obj_property name="ElementShortName">weight[31:0]</obj_property>
-      <obj_property name="ObjectShortName">weight[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[7].genblk2[0].genblk1.n1 /act" type="array">
-      <obj_property name="ElementShortName">act[31:0]</obj_property>
-      <obj_property name="ObjectShortName">act[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[7].genblk2[0].genblk1.n1 /partial_output" type="array">
-      <obj_property name="ElementShortName">partial_output[31:0]</obj_property>
-      <obj_property name="ObjectShortName">partial_output[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[7].genblk2[0].genblk1.n1 /output_register_n" type="array">
-      <obj_property name="ElementShortName">output_register_n[31:0]</obj_property>
-      <obj_property name="ObjectShortName">output_register_n[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[7].genblk2[0].genblk1.n1 /output_register" type="array">
-      <obj_property name="ElementShortName">output_register[31:0]</obj_property>
-      <obj_property name="ObjectShortName">output_register[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[7].genblk2[0].genblk1.n1 /num_connections" type="array">
-      <obj_property name="ElementShortName">num_connections[4:0]</obj_property>
-      <obj_property name="ObjectShortName">num_connections[4:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[7].genblk2[0].genblk1.n1 /num_connections_n" type="array">
-      <obj_property name="ElementShortName">num_connections_n[4:0]</obj_property>
-      <obj_property name="ObjectShortName">num_connections_n[4:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[7].genblk2[0].genblk1.n1 /cfg" type="array">
-      <obj_property name="ElementShortName">cfg</obj_property>
-      <obj_property name="ObjectShortName">cfg</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[7].genblk2[0].genblk1.n1 /added_bias" type="array">
-      <obj_property name="ElementShortName">added_bias[31:0]</obj_property>
-      <obj_property name="ObjectShortName">added_bias[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[7].genblk2[0].genblk1.n1 /node_id" type="array">
-      <obj_property name="ElementShortName">node_id[4:0]</obj_property>
-      <obj_property name="ObjectShortName">node_id[4:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench/ctrler/\genblk3[7].genblk2[0].genblk1.n1 /layer_id" type="array">
-      <obj_property name="ElementShortName">layer_id[2:0]</obj_property>
-      <obj_property name="ObjectShortName">layer_id[2:0]</obj_property>
+   <wvobject fp_name="/testbench/ctrler/bus_backward" type="array">
+      <obj_property name="ElementShortName">bus_backward[6:0]</obj_property>
+      <obj_property name="ObjectShortName">bus_backward[6:0]</obj_property>
    </wvobject>
 </wave_config>

@@ -7,14 +7,16 @@
 
 `define BUS_WIDTH
 
-`define INPUT_BUFFER_BITS $clog2(`INPUT_BUFFER_SIZE)
+//`define OUTPUT_BUFFER_BITS $clog2(`OUTPUT_BUFFER_SIZE)
 `define LAYER_BITS $clog2(`LAYER_SIZE)
 `define NUM_BITS $clog2(`LAYER_NUM)
 
 `define TRUE 1'b1
 `define FALSE 1'b0
 
-`define INPUT_BUFFER_SIZE `LAYER_SIZE
+//`define OUTPUT_BUFFER_SIZE `LAYER_SIZE * 2
+
+`define LEARNING_RATE_CONFIG 0
 
 //
 //`define ACTIVATION_VALUE logic [`VAL_WIDTH-1:0];
@@ -22,7 +24,7 @@
 typedef logic [`VAL_WIDTH-1:0] ACTIVATION_VALUE;
 
 typedef struct packed {
-    //logic valid;
+    logic valid;
     ACTIVATION_VALUE value;
     logic [`LAYER_BITS-1:0] neuron_num;
 } ACTIVATION_ENTRY_FORWARDS;
@@ -53,6 +55,7 @@ typedef struct packed {
     logic [`NUM_BITS-1:0]                   layer_id;
     logic [`LAYER_BITS-1:0]                 node_id;    // which node this config packet is for
     logic [`LAYER_SIZE-1:0]                 connection_mask;
+    logic [`LAYER_SIZE-1:0]                 layer_mask;
     logic [`LAYER_SIZE-1:0]                 output_mask;
     OPERATION_TYPE                          op_type;
 } CONFIG;

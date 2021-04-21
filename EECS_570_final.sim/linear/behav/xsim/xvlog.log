@@ -1,14 +1,15 @@
-INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/brend/OneDrive/Documents/school/eecs570/EECS_570_final/EECS_570_final.srcs/Meeting1/controller.sv" into library xil_defaultlib
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/controller.sv" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module CONTROLLER
-INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/brend/OneDrive/Documents/school/eecs570/EECS_570_final/EECS_570_final.srcs/Meeting1/node.sv" into library xil_defaultlib
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module NODE
-INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/brend/OneDrive/Documents/school/eecs570/EECS_570_final/EECS_570_final.srcs/Meeting1/ps.sv" into library xil_defaultlib
+INFO: [VRFC 10-2458] undeclared symbol comp_done_forward, assumed default net type wire [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:50]
+INFO: [VRFC 10-2458] undeclared symbol comp_done_backward, assumed default net type wire [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:67]
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/ps.sv" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module priority_selector
-INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/brend/OneDrive/Documents/school/eecs570/EECS_570_final/EECS_570_final.srcs/Meeting1/router.sv" into library xil_defaultlib
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/router.sv" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module ROUTER
-WARNING: [VRFC 10-2502] extra semicolon in $unit (global) scope [C:/Users/brend/OneDrive/Documents/school/eecs570/EECS_570_final/EECS_570_final.srcs/Meeting1/router.sv:97]
-INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/brend/OneDrive/Documents/school/eecs570/EECS_570_final/EECS_570_final.srcs/Meeting1/wand_sel.sv" into library xil_defaultlib
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/wand_sel.sv" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module wand_sel
-INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/brend/OneDrive/Documents/school/eecs570/EECS_570_final/EECS_570_final.srcs/Meeting1/linear_layer_test.sv" into library xil_defaultlib
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/linear_layer_test.sv" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module testbench
-WARNING: [VRFC 10-2502] extra semicolon in $unit (global) scope [C:/Users/brend/OneDrive/Documents/school/eecs570/EECS_570_final/EECS_570_final.srcs/Meeting1/linear_layer_test.sv:104]
+WARNING: [VRFC 10-2502] extra semicolon in $unit (global) scope [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/linear_layer_test.sv:122]

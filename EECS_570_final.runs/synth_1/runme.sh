@@ -24,7 +24,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='C:/Users/brend/OneDrive/Documents/school/eecs570/EECS_570_final/EECS_570_final.runs/synth_1'
+HD_PWD='C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.runs/synth_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log
@@ -40,4 +40,4 @@ EAStep()
      fi
 }
 
-EAStep vivado -log blink.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source blink.tcl
+EAStep vivado -log testbench.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source testbench.tcl
