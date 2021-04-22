@@ -268,8 +268,13 @@ module ROUTER (
                     update_grad = `TRUE;
                     
                     for (int head_idx = 0; head_idx < num_connections; ++head_idx) begin
-                        multiply_layer_inputs[(head_backward_prop + head_idx) % `LAYER_SIZE] = output_buffer_forwards[head_backward_prop + head_idx].value;
-                        neuron_of_multiplying_weights[(head_backward_prop + head_idx) % `LAYER_SIZE] = output_buffer_forwards[head_backward_prop + head_idx].neuron_num;
+                        if ((head_backward_prop + head_idx) >= `LAYER_SIZE) begin
+                            multiply_layer_inputs[(head_backward_prop + head_idx) - `LAYER_SIZE] = output_buffer_forwards[head_backward_prop + head_idx].value;
+                            neuron_of_multiplying_weights[(head_backward_prop + head_idx) - `LAYER_SIZE] = output_buffer_forwards[head_backward_prop + head_idx].neuron_num;
+                        end else begin
+                            multiply_layer_inputs[head_backward_prop + head_idx] = output_buffer_forwards[head_backward_prop + head_idx].value;
+                            neuron_of_multiplying_weights[head_backward_prop + head_idx] = output_buffer_forwards[head_backward_prop + head_idx].neuron_num;
+                        end
                     end
 
                 end

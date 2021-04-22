@@ -1,0 +1,4 @@
+Vivado Simulator 2020.2
+Time resolution is 1 ps
+Stopped at time : 9005 ns : File "C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/linear_layer_test.sv" Line 27
+$stop called at time : 47450 ns : File "C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/linear_layer_test.sv" Line 118

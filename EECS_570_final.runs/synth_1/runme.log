@@ -14,12 +14,11 @@ Command: synth_design -top testbench -part xczu7ev-ffvf1517-1-e
 Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xczu7ev'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xczu7ev'
-INFO: [Device 21-403] Loading part xczu7ev-ffvf1517-1-e
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 17764
+INFO: [Synth 8-7075] Helper process launched with PID 9232
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 1486.141 ; gain = 117.602
+Starting Synthesize : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 985.355 ; gain = 0.000
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-6157] synthesizing module 'testbench' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/linear_layer_test.sv:3]
 WARNING: [Synth 8-6896] event control except as first statement of always block inside initial block, initial block items will be ignored [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/linear_layer_test.sv:83]
@@ -36,6 +35,594 @@ INFO: [Synth 8-6157] synthesizing module 'wand_sel' [C:/Users/brend/OneDrive/Doc
 	Parameter WIDTH bound to: 32 - type: integer 
 INFO: [Synth 8-6155] done synthesizing module 'wand_sel' (1#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/wand_sel.sv:5]
 INFO: [Synth 8-6155] done synthesizing module 'priority_selector' (2#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/ps.sv:11]
+WARNING: [Synth 8-7071] port 'gnt' of module 'priority_selector' is unconnected for instance 'forward_sel' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/router.sv:119]
+WARNING: [Synth 8-7071] port 'empty' of module 'priority_selector' is unconnected for instance 'forward_sel' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/router.sv:119]
+WARNING: [Synth 8-7023] instance 'forward_sel' of module 'priority_selector' has 4 connections declared, but only 2 given [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/router.sv:119]
+WARNING: [Synth 8-7071] port 'gnt' of module 'priority_selector' is unconnected for instance 'backwards_sel' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/router.sv:139]
+WARNING: [Synth 8-7071] port 'empty' of module 'priority_selector' is unconnected for instance 'backwards_sel' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/router.sv:139]
+WARNING: [Synth 8-7023] instance 'backwards_sel' of module 'priority_selector' has 4 connections declared, but only 2 given [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/router.sv:139]
+INFO: [Synth 8-6155] done synthesizing module 'ROUTER' (3#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/router.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b00000 
+	Parameter layer_id bound to: 3'b000 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized0' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b00001 
+	Parameter layer_id bound to: 3'b000 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized0' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized1' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b00010 
+	Parameter layer_id bound to: 3'b000 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized1' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized2' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b00011 
+	Parameter layer_id bound to: 3'b000 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized2' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized3' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b00100 
+	Parameter layer_id bound to: 3'b000 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized3' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized4' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b00101 
+	Parameter layer_id bound to: 3'b000 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized4' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized5' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b00110 
+	Parameter layer_id bound to: 3'b000 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized5' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized6' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b00111 
+	Parameter layer_id bound to: 3'b000 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized6' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized7' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b01000 
+	Parameter layer_id bound to: 3'b000 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized7' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized8' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b01001 
+	Parameter layer_id bound to: 3'b000 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized8' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized9' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b01010 
+	Parameter layer_id bound to: 3'b000 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized9' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized10' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b01011 
+	Parameter layer_id bound to: 3'b000 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized10' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized11' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b01100 
+	Parameter layer_id bound to: 3'b000 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized11' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized12' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b01101 
+	Parameter layer_id bound to: 3'b000 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized12' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized13' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b01110 
+	Parameter layer_id bound to: 3'b000 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized13' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized14' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b01111 
+	Parameter layer_id bound to: 3'b000 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized14' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized15' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b10000 
+	Parameter layer_id bound to: 3'b000 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized15' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized16' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b10001 
+	Parameter layer_id bound to: 3'b000 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized16' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized17' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b10010 
+	Parameter layer_id bound to: 3'b000 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized17' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized18' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b10011 
+	Parameter layer_id bound to: 3'b000 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized18' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized19' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b10100 
+	Parameter layer_id bound to: 3'b000 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized19' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized20' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b10101 
+	Parameter layer_id bound to: 3'b000 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized20' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized21' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b10110 
+	Parameter layer_id bound to: 3'b000 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized21' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized22' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b10111 
+	Parameter layer_id bound to: 3'b000 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized22' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized23' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b11000 
+	Parameter layer_id bound to: 3'b000 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized23' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized24' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b11001 
+	Parameter layer_id bound to: 3'b000 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized24' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized25' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b11010 
+	Parameter layer_id bound to: 3'b000 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized25' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized26' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b11011 
+	Parameter layer_id bound to: 3'b000 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized26' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized27' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b11100 
+	Parameter layer_id bound to: 3'b000 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized27' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized28' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b11101 
+	Parameter layer_id bound to: 3'b000 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized28' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized29' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b11110 
+	Parameter layer_id bound to: 3'b000 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized29' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized30' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b11111 
+	Parameter layer_id bound to: 3'b000 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized30' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'ROUTER__parameterized0' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/router.sv:2]
+	Parameter layer_id bound to: 3'b001 
+	Parameter buffer_size bound to: 448 - type: integer 
+	Parameter buffer_bits bound to: 9 - type: integer 
+WARNING: [Synth 8-7071] port 'gnt' of module 'priority_selector' is unconnected for instance 'forward_sel' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/router.sv:119]
+WARNING: [Synth 8-7071] port 'empty' of module 'priority_selector' is unconnected for instance 'forward_sel' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/router.sv:119]
+WARNING: [Synth 8-7023] instance 'forward_sel' of module 'priority_selector' has 4 connections declared, but only 2 given [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/router.sv:119]
+WARNING: [Synth 8-7071] port 'gnt' of module 'priority_selector' is unconnected for instance 'backwards_sel' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/router.sv:139]
+WARNING: [Synth 8-7071] port 'empty' of module 'priority_selector' is unconnected for instance 'backwards_sel' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/router.sv:139]
+WARNING: [Synth 8-7023] instance 'backwards_sel' of module 'priority_selector' has 4 connections declared, but only 2 given [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/router.sv:139]
+INFO: [Synth 8-6155] done synthesizing module 'ROUTER__parameterized0' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/router.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized31' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b00000 
+	Parameter layer_id bound to: 3'b001 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized31' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized32' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b00001 
+	Parameter layer_id bound to: 3'b001 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized32' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized33' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b00010 
+	Parameter layer_id bound to: 3'b001 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized33' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized34' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b00011 
+	Parameter layer_id bound to: 3'b001 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized34' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized35' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b00100 
+	Parameter layer_id bound to: 3'b001 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized35' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized36' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b00101 
+	Parameter layer_id bound to: 3'b001 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized36' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized37' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b00110 
+	Parameter layer_id bound to: 3'b001 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized37' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized38' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b00111 
+	Parameter layer_id bound to: 3'b001 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized38' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized39' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b01000 
+	Parameter layer_id bound to: 3'b001 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized39' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized40' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b01001 
+	Parameter layer_id bound to: 3'b001 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized40' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized41' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b01010 
+	Parameter layer_id bound to: 3'b001 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized41' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized42' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b01011 
+	Parameter layer_id bound to: 3'b001 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized42' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized43' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b01100 
+	Parameter layer_id bound to: 3'b001 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized43' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized44' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b01101 
+	Parameter layer_id bound to: 3'b001 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized44' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized45' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b01110 
+	Parameter layer_id bound to: 3'b001 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized45' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized46' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b01111 
+	Parameter layer_id bound to: 3'b001 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized46' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized47' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b10000 
+	Parameter layer_id bound to: 3'b001 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized47' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized48' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b10001 
+	Parameter layer_id bound to: 3'b001 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized48' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized49' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b10010 
+	Parameter layer_id bound to: 3'b001 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized49' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized50' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b10011 
+	Parameter layer_id bound to: 3'b001 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized50' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized51' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b10100 
+	Parameter layer_id bound to: 3'b001 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized51' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized52' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b10101 
+	Parameter layer_id bound to: 3'b001 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized52' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized53' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b10110 
+	Parameter layer_id bound to: 3'b001 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized53' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized54' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b10111 
+	Parameter layer_id bound to: 3'b001 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized54' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized55' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b11000 
+	Parameter layer_id bound to: 3'b001 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized55' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized56' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b11001 
+	Parameter layer_id bound to: 3'b001 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized56' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized57' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b11010 
+	Parameter layer_id bound to: 3'b001 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized57' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized58' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b11011 
+	Parameter layer_id bound to: 3'b001 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized58' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized59' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b11100 
+	Parameter layer_id bound to: 3'b001 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized59' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized60' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b11101 
+	Parameter layer_id bound to: 3'b001 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized60' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized61' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b11110 
+	Parameter layer_id bound to: 3'b001 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized61' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized62' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b11111 
+	Parameter layer_id bound to: 3'b001 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized62' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'ROUTER__parameterized1' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/router.sv:2]
+	Parameter layer_id bound to: 3'b010 
+	Parameter buffer_size bound to: 384 - type: integer 
+	Parameter buffer_bits bound to: 9 - type: integer 
+WARNING: [Synth 8-7071] port 'gnt' of module 'priority_selector' is unconnected for instance 'forward_sel' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/router.sv:119]
+WARNING: [Synth 8-7071] port 'empty' of module 'priority_selector' is unconnected for instance 'forward_sel' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/router.sv:119]
+WARNING: [Synth 8-7023] instance 'forward_sel' of module 'priority_selector' has 4 connections declared, but only 2 given [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/router.sv:119]
+WARNING: [Synth 8-7071] port 'gnt' of module 'priority_selector' is unconnected for instance 'backwards_sel' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/router.sv:139]
+WARNING: [Synth 8-7071] port 'empty' of module 'priority_selector' is unconnected for instance 'backwards_sel' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/router.sv:139]
+WARNING: [Synth 8-7023] instance 'backwards_sel' of module 'priority_selector' has 4 connections declared, but only 2 given [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/router.sv:139]
+INFO: [Synth 8-6155] done synthesizing module 'ROUTER__parameterized1' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/router.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized63' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b00000 
+	Parameter layer_id bound to: 3'b010 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized63' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized64' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b00001 
+	Parameter layer_id bound to: 3'b010 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized64' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized65' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b00010 
+	Parameter layer_id bound to: 3'b010 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized65' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized66' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b00011 
+	Parameter layer_id bound to: 3'b010 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized66' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized67' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b00100 
+	Parameter layer_id bound to: 3'b010 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized67' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized68' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b00101 
+	Parameter layer_id bound to: 3'b010 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized68' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized69' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b00110 
+	Parameter layer_id bound to: 3'b010 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized69' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized70' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b00111 
+	Parameter layer_id bound to: 3'b010 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized70' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized71' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b01000 
+	Parameter layer_id bound to: 3'b010 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized71' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized72' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b01001 
+	Parameter layer_id bound to: 3'b010 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized72' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized73' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b01010 
+	Parameter layer_id bound to: 3'b010 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized73' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized74' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b01011 
+	Parameter layer_id bound to: 3'b010 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized74' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized75' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b01100 
+	Parameter layer_id bound to: 3'b010 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized75' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized76' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b01101 
+	Parameter layer_id bound to: 3'b010 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized76' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized77' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b01110 
+	Parameter layer_id bound to: 3'b010 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized77' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized78' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b01111 
+	Parameter layer_id bound to: 3'b010 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized78' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized79' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b10000 
+	Parameter layer_id bound to: 3'b010 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized79' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized80' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b10001 
+	Parameter layer_id bound to: 3'b010 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized80' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized81' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b10010 
+	Parameter layer_id bound to: 3'b010 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized81' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized82' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b10011 
+	Parameter layer_id bound to: 3'b010 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized82' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized83' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b10100 
+	Parameter layer_id bound to: 3'b010 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized83' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized84' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b10101 
+	Parameter layer_id bound to: 3'b010 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized84' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized85' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b10110 
+	Parameter layer_id bound to: 3'b010 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized85' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized86' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b10111 
+	Parameter layer_id bound to: 3'b010 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized86' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized87' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b11000 
+	Parameter layer_id bound to: 3'b010 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized87' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized88' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b11001 
+	Parameter layer_id bound to: 3'b010 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized88' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized89' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b11010 
+	Parameter layer_id bound to: 3'b010 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized89' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized90' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b11011 
+	Parameter layer_id bound to: 3'b010 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized90' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'NODE__parameterized91' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Common 17-14] Message 'Synth 8-6157' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+	Parameter node_id bound to: 5'b11100 
+	Parameter layer_id bound to: 3'b010 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized91' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b11101 
+	Parameter layer_id bound to: 3'b010 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized92' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+	Parameter node_id bound to: 5'b11110 
+	Parameter layer_id bound to: 3'b010 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Synth 8-6155] done synthesizing module 'NODE__parameterized93' (4#1) [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:2]
+INFO: [Common 17-14] Message 'Synth 8-6155' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+	Parameter node_id bound to: 5'b11111 
+	Parameter layer_id bound to: 3'b010 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+	Parameter layer_id bound to: 3'b011 
+	Parameter buffer_size bound to: 320 - type: integer 
+	Parameter buffer_bits bound to: 9 - type: integer 
+WARNING: [Synth 8-7071] port 'gnt' of module 'priority_selector' is unconnected for instance 'forward_sel' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/router.sv:119]
+WARNING: [Synth 8-7071] port 'empty' of module 'priority_selector' is unconnected for instance 'forward_sel' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/router.sv:119]
+WARNING: [Synth 8-7023] instance 'forward_sel' of module 'priority_selector' has 4 connections declared, but only 2 given [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/router.sv:119]
+WARNING: [Synth 8-7071] port 'gnt' of module 'priority_selector' is unconnected for instance 'backwards_sel' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/router.sv:139]
+WARNING: [Synth 8-7071] port 'empty' of module 'priority_selector' is unconnected for instance 'backwards_sel' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/router.sv:139]
+WARNING: [Synth 8-7023] instance 'backwards_sel' of module 'priority_selector' has 4 connections declared, but only 2 given [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/router.sv:139]
+	Parameter node_id bound to: 5'b00000 
+	Parameter layer_id bound to: 3'b011 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+	Parameter node_id bound to: 5'b00001 
+	Parameter layer_id bound to: 3'b011 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+	Parameter node_id bound to: 5'b00010 
+	Parameter layer_id bound to: 3'b011 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+	Parameter node_id bound to: 5'b00011 
+	Parameter layer_id bound to: 3'b011 
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/node.sv:92]
+INFO: [Common 17-14] Message 'Synth 8-155' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+	Parameter node_id bound to: 5'b00100 
+	Parameter layer_id bound to: 3'b011 
+	Parameter node_id bound to: 5'b00101 
+	Parameter layer_id bound to: 3'b011 
+	Parameter node_id bound to: 5'b00110 
+	Parameter layer_id bound to: 3'b011 
+	Parameter node_id bound to: 5'b00111 
+	Parameter layer_id bound to: 3'b011 
+	Parameter node_id bound to: 5'b01000 
+	Parameter layer_id bound to: 3'b011 
+	Parameter node_id bound to: 5'b01001 
+	Parameter layer_id bound to: 3'b011 
+	Parameter node_id bound to: 5'b01010 
+	Parameter layer_id bound to: 3'b011 
+	Parameter node_id bound to: 5'b01011 
+	Parameter layer_id bound to: 3'b011 
+	Parameter node_id bound to: 5'b01100 
+	Parameter layer_id bound to: 3'b011 
+	Parameter node_id bound to: 5'b01101 
+	Parameter layer_id bound to: 3'b011 
+	Parameter node_id bound to: 5'b01110 
+	Parameter layer_id bound to: 3'b011 
+	Parameter node_id bound to: 5'b01111 
+	Parameter layer_id bound to: 3'b011 
+	Parameter node_id bound to: 5'b10000 
+	Parameter layer_id bound to: 3'b011 
+	Parameter node_id bound to: 5'b10001 
+	Parameter layer_id bound to: 3'b011 
+	Parameter node_id bound to: 5'b10010 
+	Parameter layer_id bound to: 3'b011 
+	Parameter node_id bound to: 5'b10011 
+	Parameter layer_id bound to: 3'b011 
+	Parameter node_id bound to: 5'b10100 
+	Parameter layer_id bound to: 3'b011 
+	Parameter node_id bound to: 5'b10101 
+	Parameter layer_id bound to: 3'b011 
+	Parameter node_id bound to: 5'b10110 
+	Parameter layer_id bound to: 3'b011 
+	Parameter node_id bound to: 5'b10111 
+	Parameter layer_id bound to: 3'b011 
+	Parameter node_id bound to: 5'b11000 
+	Parameter layer_id bound to: 3'b011 
+	Parameter node_id bound to: 5'b11001 
+	Parameter layer_id bound to: 3'b011 
+	Parameter node_id bound to: 5'b11010 
+	Parameter layer_id bound to: 3'b011 
+	Parameter node_id bound to: 5'b11011 
+	Parameter layer_id bound to: 3'b011 
+	Parameter node_id bound to: 5'b11100 
+	Parameter layer_id bound to: 3'b011 
+	Parameter node_id bound to: 5'b11101 
+	Parameter layer_id bound to: 3'b011 
+	Parameter node_id bound to: 5'b11110 
+	Parameter layer_id bound to: 3'b011 
+	Parameter node_id bound to: 5'b11111 
+	Parameter layer_id bound to: 3'b011 
+	Parameter layer_id bound to: 3'b100 
+	Parameter buffer_size bound to: 256 - type: integer 
+	Parameter buffer_bits bound to: 8 - type: integer 
 WARNING: [Synth 8-7071] port 'gnt' of module 'priority_selector' is unconnected for instance 'forward_sel' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/router.sv:119]
 WARNING: [Synth 8-7071] port 'empty' of module 'priority_selector' is unconnected for instance 'forward_sel' [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/router.sv:119]
 WARNING: [Synth 8-7023] instance 'forward_sel' of module 'priority_selector' has 4 connections declared, but only 2 given [C:/Users/brend/OneDrive/Documents/school/eecs570/backprop/eecs_570_final/EECS_570_final.srcs/Meeting1/router.sv:119]
