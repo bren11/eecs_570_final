@@ -51,9 +51,6 @@ typedef enum logic [2:0] {
 } OPERATION_TYPE;
 
 typedef struct packed {
-    logic                                   valid;
-    logic [`NUM_BITS-1:0]                   layer_id;
-    logic [`LAYER_BITS-1:0]                 node_id;    // which node this config packet is for
     logic [`LAYER_SIZE-1:0]                 connection_mask;
     logic [`LAYER_SIZE-1:0]                 layer_mask;
     logic [`LAYER_SIZE-1:0]                 output_mask;

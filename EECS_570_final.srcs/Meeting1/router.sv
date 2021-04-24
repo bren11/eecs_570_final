@@ -3,6 +3,7 @@ module ROUTER (
                 input clk,
                 input rst,
                 input training_enable,
+                input config_valid,
                 input CONFIG            config_in,
 
                 // forward prop
@@ -351,7 +352,7 @@ module ROUTER (
             end
 
         end else begin
-            if (config_in.valid && config_in.layer_id == layer_id) begin
+            if (config_valid) begin
                 target_input_forwards <= (target_input_forwards | config_in.connection_mask);
                 target_input_backwards <= (target_input_backwards | config_in.layer_mask);
             end

@@ -35,9 +35,31 @@ module CONTROLLER ( input                                       clk,
     logic [`LAYER_BITS-1:0] prev_size;
     logic [`LAYER_BITS-1:0] n_prev_size;
 
-    logic setup;
-    CONFIG cfg;
-    CONFIG n_config;
+    logic                                   setup;
+    logic                                   config_on;      // this takes the place of the old config_valid 
+                                                            // that was sent on the bus so I don't have to mess with the actual logic too much
+    logic                                   n_config_on;
+    
+    logic [`LAYER_NUM-1:0][`LAYER_SIZE-1:0] config_valid;
+
+
+    for(genvar i = 0; i < `LAYER_NUM; ++i) begin
+        for(genvar j = 0; j < `LAYER_SIZE; ++j) begin
+            if(i == layer_id && j == node_id && config_on) begin
+                config_valid[i][j] = `TRUE;
+            end else begin
+                config_valid[i][j] = `FALSE;
+            end
+        end
+    end
+
+    logic [`NUM_BITS-1:0]                   layer_id;
+    logic [`LAYER_BITS-1:0]                 node_id;
+    logic [`NUM_BITS-1:0]                   n_layer_id;
+    logic [`LAYER_BITS-1:0]                 n_node_id;
+
+    CONFIG                                  cfg;
+    CONFIG                                  n_config;
 
     logic [`LAYER_SIZE-1:0] target_out;
     logic [`LAYER_SIZE-1:0] target_in;
@@ -92,7 +114,8 @@ module CONTROLLER ( input                                       clk,
         if (i == 0) begin
             ROUTER #(.layer_id(i)) r1(  .clk(clk), 
                                         .rst(rst), 
-                                        .config_in(cfg), 
+                                        .config_valid(config_valid[i][0]),
+                                        .config_in(cfg),
 
                                         .neuron_outputs(input_layer_forward), 
                                         .output_ready_forwards(input_signal_forward), 
@@ -107,7 +130,8 @@ module CONTROLLER ( input                                       clk,
                                         .data_received_ack_backwards(data_recieved_backward[i]));
         end else if (i == `LAYER_NUM - 1) begin
             ROUTER #(.layer_id(i)) r1(  .clk(clk), 
-                                        .rst(rst), 
+                                        .rst(rst),
+                                        .config_valid(config_valid[i][0]),
                                         .config_in(cfg), 
 
                                         .neuron_outputs(values_forward[i-1]), 
@@ -125,7 +149,8 @@ module CONTROLLER ( input                                       clk,
                                         .data_received_ack_backwards(data_recieved_backward[i]));
         end else begin
             ROUTER #(.layer_id(i)) r2(  .clk(clk), 
-                                        .rst(rst), 
+                                        .rst(rst),
+                                        .config_valid(config_valid[i][0]),
                                         .config_in(cfg), 
 
                                         .neuron_outputs(values_forward[i-1]), 
@@ -144,8 +169,9 @@ module CONTROLLER ( input                                       clk,
         end
         for(genvar j = 0; j < `LAYER_SIZE; j++) begin
             if (i == `LAYER_NUM - 1)
-                NODE #(.layer_id(i), .node_id(j)) n1(   .clk(clk), 
+                NODE n1(   .clk(clk), 
                                                         .rst(rst), 
+                                                        .config_valid(config_valid[i][j]),
                                                         .config_in(cfg), 
 
                                                         .bus_in_forward(bus_forward[i]),
@@ -155,8 +181,9 @@ module CONTROLLER ( input                                       clk,
                                                         .stall_forward(node_stall_forward[i][j]),
                                                         .output_value_forward(values_forward[i][j]));
             else
-                NODE #(.layer_id(i), .node_id(j)) n2(   .clk(clk), 
+                NODE n2(   .clk(clk), 
                                                         .rst(rst), 
+                                                        .config_valid(config_valid[i][j]),
                                                         .config_in(cfg), 
 
                                                         .bus_in_forward(bus_forward[i]),
@@ -212,17 +239,17 @@ module CONTROLLER ( input                                       clk,
         n_internal_it = internal_it;
         n_prev_size = prev_size;
         if (setup) begin
-            n_config.valid = `TRUE;
-            n_config.node_id = 0;
-            n_config.layer_id = 0;
-        end else if (cfg.node_id == `LAYER_SIZE-1) begin
-            if (cfg.layer_id == `LAYER_NUM-1) begin
-                n_config.valid = `FALSE;
+            n_config_on = `TRUE;
+            n_node_id = 0;
+            n_layer_id = 0;
+        end else if (node_id == `LAYER_SIZE-1) begin
+            if (layer_id == `LAYER_NUM-1) begin
+                n_config_on = `FALSE;
                 if (layers[layer_it].layer_type != L_NONE)
                     n_prev_size = layers[layer_it].size;
             end else begin
-                n_config.node_id = 0;
-                n_config.layer_id = cfg.layer_id + 1;
+                node_id = 0;
+                n_layer_id = layer_id + 1;
                 case (layers[layer_it].layer_type)
                     L_LINEAR: begin
                         n_prev_size = layers[layer_it].size;
@@ -235,7 +262,7 @@ module CONTROLLER ( input                                       clk,
                 endcase
             end
         end else begin 
-           n_config.node_id = cfg.node_id + 1;
+           n_node_id = node_id + 1;
         end
 
         n_config.connection_mask = 0;
@@ -244,7 +271,7 @@ module CONTROLLER ( input                                       clk,
         /////////////////// DETERMINE CONFIG //////////////////////////
         case (layers[n_layer_it].layer_type)
             L_NONE: begin
-                if (n_config.node_id <= n_prev_size) begin
+                if (node_id <= n_prev_size) begin
                     n_config.op_type = ADD;
                     n_config.connection_mask[n_config.node_id] = `TRUE;
                     n_config.output_mask[n_config.node_id] = `TRUE;
@@ -252,7 +279,7 @@ module CONTROLLER ( input                                       clk,
                 end
             end
             L_LINEAR: begin
-                if (n_config.node_id <= layers[n_layer_it].size) begin
+                if (node_id <= layers[n_layer_it].size) begin
                     n_config.op_type = MACC;
                     for (int c = 0; c <= n_prev_size; c++) begin
                         n_config.connection_mask[c] = `TRUE;
@@ -284,7 +311,10 @@ module CONTROLLER ( input                                       clk,
             out_ready <= 0;
             input_complete_forward <= 0;
             input_complete_backward <= 0;
+            layer_id <= 0;
+            node_id <= 0;
             cfg <= 0;
+            config_on <= 0;
             setup <= 1;
             internal_it <= 0;
             prev_size <= input_size;
@@ -295,7 +325,10 @@ module CONTROLLER ( input                                       clk,
             out_ready <= n_out_ready;
             input_complete_forward <= n_input_complete_forward;
             input_complete_backward <= n_input_complete_backward;
+            layer_id <= n_layer_id;
+            node_id <= n_node_id;
             cfg <= n_config;
+            config_on <= n_config_on;
             internal_it <= n_internal_it;
             prev_size <= n_prev_size;
             if (n_config.valid)

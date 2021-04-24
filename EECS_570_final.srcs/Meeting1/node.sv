@@ -1,6 +1,7 @@
 `include "types.sv"
 module NODE ( input                     clk,
               input                     rst,
+              input                     config_valid,
               input CONFIG              config_in,
 
               // forward prop
@@ -21,9 +22,6 @@ module NODE ( input                     clk,
               output                    stall_backward,
               output ACTIVATION_VALUE   output_value_backward
             );
-
-    parameter [`LAYER_BITS-1:0] node_id = 0;
-    parameter [`NUM_BITS-1:0] layer_id = 0;
 
     ACTIVATION_VALUE partial_output_forward;
     ACTIVATION_VALUE partial_output_backward;
@@ -185,7 +183,7 @@ module NODE ( input                     clk,
             output_register_backward <= 0;
 
         end else begin
-            if (config_in.valid & node_id == config_in.node_id && layer_id == config_in.layer_id) begin
+            if (config_valid) begin
                 connection_mask <= config_in.connection_mask;
                 output_mask <= config_in.output_mask;
                 op_type <= config_in.op_type;
