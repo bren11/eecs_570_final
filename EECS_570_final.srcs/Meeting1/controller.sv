@@ -114,7 +114,7 @@ module CONTROLLER ( input                                       clk,
         if (i == 0) begin
             ROUTER #(.layer_id(i)) r1(  .clk(clk), 
                                         .rst(rst), 
-                                        .config_valid(config_valid[i][0]),
+                                        .config_valid(|(config_valid[i])),
                                         .config_in(cfg),
 
                                         .neuron_outputs(input_layer_forward), 
@@ -131,7 +131,7 @@ module CONTROLLER ( input                                       clk,
         end else if (i == `LAYER_NUM - 1) begin
             ROUTER #(.layer_id(i)) r1(  .clk(clk), 
                                         .rst(rst),
-                                        .config_valid(config_valid[i][0]),
+                                        .config_valid(|(config_valid[i])),
                                         .config_in(cfg), 
 
                                         .neuron_outputs(values_forward[i-1]), 
@@ -150,7 +150,7 @@ module CONTROLLER ( input                                       clk,
         end else begin
             ROUTER #(.layer_id(i)) r2(  .clk(clk), 
                                         .rst(rst),
-                                        .config_valid(config_valid[i][0]),
+                                        .config_valid(|(config_valid[i])),
                                         .config_in(cfg), 
 
                                         .neuron_outputs(values_forward[i-1]), 
